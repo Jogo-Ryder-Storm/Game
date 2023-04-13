@@ -1,8 +1,12 @@
+# Imports
 import pygame
-from pygame.locals import *
 import os
 import sys
 import random
+import pytmx
+
+from pygame.locals import *
+from pytmx.util_pygame import load_pygame
 
 # Modulos
 from Sprite.spritesheet import SpriteSheet
@@ -30,6 +34,10 @@ pygame.display.set_caption('Ryder Storm')
 spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
 sprite = SpriteSheet(spriteimg)
 player = Player(sprite, 50, 50, 10, 64, 70)
+
+
+# Printa que o jogo iniciou
+print("System UP!")
 
 #Game loop
 while True:
