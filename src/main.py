@@ -35,8 +35,6 @@ spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
 sprite = SpriteSheet(spriteimg)
 player = Player(sprite, 50, 50, 10, 64, 70)
 
-# Mapa
-tiled_map = load_pygame('map.tmx')
 
 # Printa que o jogo iniciou
 print("System UP!")
