@@ -25,8 +25,8 @@ BLUE = (0, 0, 255)
 
 # Tela
 height = 800
-width = 600
-size = [height, width]
+width = 1000
+size = [width, height]
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('Ryder Storm')
 
@@ -41,7 +41,7 @@ print("System UP!")
 
 #Game loop
 while True:
-    screen.fill(WHITE)
+    screen.fill(BLACK)
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
             pygame.quit()
@@ -50,9 +50,11 @@ while True:
         #Key event Player
         if event.type == KEYDOWN:
             if event.key == K_LEFT:
+                player.direction = player.directions[0]
                 player.left = True
                 player.cur_frame = 0
             if event.key == K_RIGHT:
+                player.direction = player.directions[1]
                 player.right = True
                 player.cur_frame = 0
             if event.key == K_UP:
@@ -74,10 +76,18 @@ while True:
             if event.key == K_DOWN:
                 player.down = False
                 player.cur_frame = 0
+    print(player.x,player.y)
+    if(player.x < -20 ):
+        player.x = -20
+    if(player.x > width-100):
+        player.x = width-100
+    if(player.y < 0):
+        player.y = 0
+    if(player.y > height-140):
+        player.y = height-140
 
     player.Move()
     player.Draw(screen)
 
     pygame.display.flip()
     FPSCLOCK.tick(30)
-
