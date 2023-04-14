@@ -25,8 +25,8 @@ BLUE = (0, 0, 255)
 
 # Tela
 height = 800
-width = 600
-size = [height, width]
+width = 1000
+size = [width, height]
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('Ryder Storm')
 
@@ -76,6 +76,15 @@ while True:
             if event.key == K_DOWN:
                 player.down = False
                 player.cur_frame = 0
+    print(player.x,player.y)
+    if(player.x < -20 ):
+        player.x = -20
+    if(player.x > width-100):
+        player.x = width-100
+    if(player.y < 0):
+        player.y = 0
+    if(player.y > height-140):
+        player.y = height-140
 
     player.Move()
     player.Draw(screen)
