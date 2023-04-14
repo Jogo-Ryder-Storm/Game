@@ -3,17 +3,19 @@ from entities.Entity import Entity
 
 class Player(Entity):
     life = 3
-    direcoes = ["left", "down", "right", "up"]
+    directions = ["left", "down", "right", "up"]
     colisao = False
-    direcao = direcoes[0]
-    directions = [1, 3] #ESQUERDA DIREITA
-    direction = directions[0]
+    actualDirection = directions[0]
+    walkSpriteFrame = [1, 3] #ESQUERDA DIREITA
+    currentFrame = walkSpriteFrame[0]
     up = False
     down = False
     left = False
     right = False
     state = 0
     size = 0
+    lastX = 0
+    lastY = 0
     anim = []
     anim_steps = [9, 4, 9, 4]
     last_update = pygame.time.get_ticks()
@@ -32,20 +34,22 @@ class Player(Entity):
             j += 1
             self.anim.append(temp_list)
             
-    
+
     def Move(self):
+        self.lastX = self.x
+        self.lastY = self.y
         if(self.up or self.down or self.left or self.right):
-            self.state = self.direction
+            self.state = self.currentFrame
             if(self.up):
                 self.y -= self.speed
             elif(self.down):
                 self.y += self.speed
-            elif(self.left):
+            if(self.left):
                 self.x -= self.speed
             elif(self.right):
                 self.x += self.speed
         else:
-            if(self.direction == self.directions[0]):
+            if(self.currentFrame == self.walkSpriteFrame[0]):
                 self.state = 0
             else:
                 self.state = 2
@@ -61,12 +65,6 @@ class Player(Entity):
         screen.blit(self.anim[self.state][self.cur_frame], (self.x, self.y))
     
     def block(self):
-            if(self.direcao == self.direcoes[3]):
-                self.y += self.speed*2
-            elif(self.direcao == self.direcoes[1]):
-                self.y -= self.speed*2
-            elif(self.direcao == self.direcoes[0]):
-                self.x += self.speed*2
-            elif(self.direcao == self.direcoes[2]):
-                self.x -= self.speed*2
+            self.x = self.lastX
+            self.y = self.lastY
             self.colisao = False
