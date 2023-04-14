@@ -3,13 +3,17 @@ from entities.Entity import Entity
 
 class Player(Entity):
     life = 3
-    directions = [1, 3]
+    direcoes = ["left", "down", "right", "up"]
+    colisao = False
+    direcao = direcoes[0]
+    directions = [1, 3] #ESQUERDA DIREITA
     direction = directions[0]
     up = False
     down = False
     left = False
     right = False
     state = 0
+    size = 0
     anim = []
     anim_steps = [9, 4, 9, 4]
     last_update = pygame.time.get_ticks()
@@ -17,6 +21,7 @@ class Player(Entity):
     cur_frame = 0
     def __init__(self, sprite, x, y, speed, width, height):
         super().__init__(sprite, x, y, speed, width, height)
+        self.size = width * height
         j = 0
         for animation in self.anim_steps:
             temp_list = []
@@ -26,6 +31,7 @@ class Player(Entity):
                 i += 1
             j += 1
             self.anim.append(temp_list)
+            
     
     def Move(self):
         if(self.up or self.down or self.left or self.right):
@@ -34,11 +40,10 @@ class Player(Entity):
                 self.y -= self.speed
             elif(self.down):
                 self.y += self.speed
-            if(self.left):
+            elif(self.left):
                 self.x -= self.speed
             elif(self.right):
                 self.x += self.speed
-                
         else:
             if(self.direction == self.directions[0]):
                 self.state = 0
@@ -54,3 +59,14 @@ class Player(Entity):
                 self.cur_frame = 0
 
         screen.blit(self.anim[self.state][self.cur_frame], (self.x, self.y))
+    
+    def block(self):
+            if(self.direcao == self.direcoes[3]):
+                self.y += self.speed*2
+            elif(self.direcao == self.direcoes[1]):
+                self.y -= self.speed*2
+            elif(self.direcao == self.direcoes[0]):
+                self.x += self.speed*2
+            elif(self.direcao == self.direcoes[2]):
+                self.x -= self.speed*2
+            self.colisao = False
