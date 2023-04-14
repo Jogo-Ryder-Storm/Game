@@ -41,7 +41,7 @@ print("System UP!")
 
 #Game loop
 while True:
-    screen.fill(WHITE)
+    screen.fill(BLACK)
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
             pygame.quit()
@@ -50,9 +50,11 @@ while True:
         #Key event Player
         if event.type == KEYDOWN:
             if event.key == K_LEFT:
+                player.direction = player.directions[0]
                 player.left = True
                 player.cur_frame = 0
             if event.key == K_RIGHT:
+                player.direction = player.directions[1]
                 player.right = True
                 player.cur_frame = 0
             if event.key == K_UP:
@@ -80,4 +82,3 @@ while True:
 
     pygame.display.flip()
     FPSCLOCK.tick(30)
-

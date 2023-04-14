@@ -3,13 +3,15 @@ from entities.Entity import Entity
 
 class Player(Entity):
     life = 3
+    directions = ["left", "right"]
+    direction = directions[0]
     up = False
     down = False
     left = False
     right = False
     state = 0
     anim = []
-    anim_steps = [9, 4]
+    anim_steps = [9, 4, 9, 4]
     last_update = pygame.time.get_ticks()
     frame_tick = 120
     cur_frame = 0
@@ -36,8 +38,12 @@ class Player(Entity):
                 self.x -= self.speed
             elif(self.right):
                 self.x += self.speed
+                self.state = 3
         else:
-            self.state = 0
+            if(self.direction == self.directions[0]):
+                self.state = 0
+            else:
+                self.state = 2
 
     def Draw(self, screen):
         cur_time = pygame.time.get_ticks()
