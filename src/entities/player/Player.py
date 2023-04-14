@@ -4,8 +4,8 @@ from entities.Entity import Entity
 class Player(Entity):
     life = 3
     directions = ["left", "down", "right", "up"]
-    colisao = False
     actualDirection = directions[0]
+    colisao = False
     walkSpriteFrame = [1, 3] #ESQUERDA DIREITA
     currentFrame = walkSpriteFrame[0]
     up = False
@@ -16,6 +16,7 @@ class Player(Entity):
     size = 0
     lastX = 0
     lastY = 0
+    hitbox = {"width": 0, "height": 0}
     anim = []
     anim_steps = [9, 4, 9, 4]
     last_update = pygame.time.get_ticks()
@@ -33,7 +34,8 @@ class Player(Entity):
                 i += 1
             j += 1
             self.anim.append(temp_list)
-            
+            self.hitbox["width"] = width*1.6
+            self.hitbox["height"] = height*1.9
 
     def Move(self):
         self.lastX = self.x
@@ -61,7 +63,6 @@ class Player(Entity):
             self.last_update = cur_time
             if self.cur_frame == len(self.anim[self.state]):
                 self.cur_frame = 0
-
         screen.blit(self.anim[self.state][self.cur_frame], (self.x, self.y))
     
     def block(self):
