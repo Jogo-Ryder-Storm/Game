@@ -3,7 +3,7 @@ from entities.Entity import Entity
 
 class Player(Entity):
     life = 3
-    directions = ["left", "right"]
+    directions = [1, 3]
     direction = directions[0]
     up = False
     down = False
@@ -29,7 +29,7 @@ class Player(Entity):
     
     def Move(self):
         if(self.up or self.down or self.left or self.right):
-            self.state = 1
+            self.state = self.direction
             if(self.up):
                 self.y -= self.speed
             elif(self.down):
@@ -38,7 +38,7 @@ class Player(Entity):
                 self.x -= self.speed
             elif(self.right):
                 self.x += self.speed
-                self.state = 3
+                
         else:
             if(self.direction == self.directions[0]):
                 self.state = 0
