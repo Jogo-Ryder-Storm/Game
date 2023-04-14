@@ -36,25 +36,19 @@ spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
 sprite = SpriteSheet(spriteimg)
 player = Player(sprite, 50, 50, 10, 64, 70)
 
-# Define as coordenadas do centro do círculo
-circle_x = width // 4 
-circle_y = height // 4
-# Define o raio do círculo
-circle_radius = 50
+
 
 # Printa que o jogo iniciou
 print("System UP!")
 
 
-###
+deskWidth = 150
+deskHeight = 100
 desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
-desk = pygame.transform.scale(desk, (200,200))
+desk = pygame.transform.scale(desk, (deskWidth,deskHeight))
 rect1 = desk.get_rect()
 rect1.x = 300
-rect1.y = 100
-
-
-
+rect1.y = 200
 
 #Game loop
 while True:
@@ -107,15 +101,15 @@ while True:
         player.y = height-140
 
     screen.blit(desk, rect1)
-    
-    pygame.draw.rect(screen, (0, 100, 255), (player.x, player.y, player.width, player.height), 3)  # width = 3
-    pygame.draw.rect(screen, (0, 100, 255), (rect1.x, rect1.y,200, 200), 3)  # width = 3
+    pygame.draw.rect(screen, RED, (player.x, player.y, player.hitbox["width"], player.hitbox["height"]), 3) 
+    pygame.draw.rect(screen, (0, 100, 255), (player.x, player.y, player.width, player.height), 3)  
+    pygame.draw.rect(screen, (0, 100, 255), (rect1.x, rect1.y,deskWidth, deskHeight), 3) 
 
     while(player.colisao == True):
         player.block()
 
     #Checa colisão
-    player_rect = pygame.Rect(player.x, player.y, player.width, player.height)
+    player_rect = pygame.Rect(player.x, player.y, player.hitbox["width"], player.hitbox["height"])
     if player_rect.colliderect(rect1):
         player.colisao = True
     else:
@@ -123,6 +117,7 @@ while True:
         player.Move()
         
         
+
     player.Draw(screen)
 
     pygame.display.flip()
