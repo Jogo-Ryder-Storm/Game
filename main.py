@@ -85,6 +85,7 @@ class Game():
             else:
                 player.colisao = False
             
+            player.block()
             player.Move()    
             player.Draw(screen)
             deskobj.Draw(screen)

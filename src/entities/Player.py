@@ -51,10 +51,6 @@ class Player(Entity):
                     self.state = 0
                 else:
                     self.state = 2
-        else:
-            self.x = self.lastX
-            self.y = self.lastY
-            self.colisao = False
 
     def Draw(self, screen):
         cur_time = pygame.time.get_ticks()
@@ -64,3 +60,9 @@ class Player(Entity):
             if self.cur_frame == len(self.anim[self.state]):
                 self.cur_frame = 0
         screen.blit(self.anim[self.state][self.cur_frame], (self.x, self.y))
+    
+    def block(self):
+            if(self.colisao):
+                self.x = self.lastX
+                self.y = self.lastY
+                self.colisao = False
