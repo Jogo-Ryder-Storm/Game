@@ -7,6 +7,7 @@ from pytmx.util_pygame import load_pygame
 from src.settings import *
 from src.spritesheet import SpriteSheet
 from src.entities.Player import Player
+from src.entities.Entity import Entity
 from src.text import Text
 
 # Inicia a pygame engine
@@ -22,20 +23,17 @@ class Game():
     def run(self):
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
-        player = Player(sprite, 50, 50, 10, 64, 70)
-        deskWidth = 150
-        deskHeight = 100
+        player = Player(sprite, 50, 50, 10, 64, 70, 2)
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
-        desk = pygame.transform.scale(desk, (deskWidth,deskHeight))
-        rect1 = desk.get_rect()
-        rect1.x = 300
-        rect1.y = 200
+        rectdesk = desk.get_rect()
+        deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1)
         while self.active:
             screen.fill(BLACK)
             for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
                     pygame.quit()
                     exit()
+
                 #Key event Player
                 if event.type == KEYDOWN:
                     if event.key == K_LEFT:
@@ -79,23 +77,17 @@ class Game():
             if(player.y > HEIGHT-140):
                 player.y = HEIGHT-140
 
-            screen.blit(desk, rect1)
-            #pygame.draw.rect(screen, RED, (player.x, player.y, player.hitbox["width"], player.hitbox["height"]), 3) 
-            #pygame.draw.rect(screen, (0, 100, 255), (player.x, player.y, player.width, player.height), 3)  
-            #pygame.draw.rect(screen, (0, 100, 255), (rect1.x, rect1.y,deskWidth, deskHeight), 3) 
+            pygame.draw.rect(screen, RED, (player.x, player.y, player.width * player.scale, player.height * player.scale), 3)   
+            pygame.draw.rect(screen, (0, 100, 255), (deskobj.x, deskobj.y, deskobj.width, deskobj.height), 3) 
 
-            while(player.colisao == True):
-                player.block()
-
-            #Checa colisão
-            player_rect = pygame.Rect(player.x, player.y, player.hitbox["width"], player.hitbox["height"])
-            if player_rect.colliderect(rect1):
+            if(player.isColliding(deskobj)):
                 player.colisao = True
             else:
                 player.colisao = False
-                player.Move()
-                
+            
+            player.Move()    
             player.Draw(screen)
+            deskobj.Draw(screen)
             pygame.display.flip()
             FPSCLOCK.tick(30)
 
