@@ -12,7 +12,7 @@ Instale as depêndencias
 
 execute o comando:
 ```bash
-  python src/main.py
+  python main.py
 ```
 
 ## Como funciona

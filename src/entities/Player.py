@@ -1,5 +1,5 @@
 import pygame
-from entities.Entity import Entity
+from src.entities.Entity import Entity
 
 class Player(Entity):
     life = 3

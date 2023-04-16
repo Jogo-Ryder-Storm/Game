@@ -4,10 +4,10 @@ from pygame.locals import *
 from pytmx.util_pygame import load_pygame
 
 # Modulos
-from settings import *
-from Sprite.spritesheet import SpriteSheet
-from entities.player.Player import Player
-from text import Text
+from src.settings import *
+from src.spritesheet import SpriteSheet
+from src.entities.Player import Player
+from src.text import Text
 
 # Inicia a pygame engine
 pygame.init()
