@@ -14,7 +14,7 @@ class Entity():
         screen.blit(self.sprite,(self.x, self.y))
     
     def isColliding(self, entity2):
-        other_rect = pygame.Rect(entity2.x * entity2.scale, entity2.y * entity2.scale, entity2.width, entity2.height)
+        other_rect = pygame.Rect(entity2.x, entity2.y, entity2.width * entity2.scale, entity2.height * entity2.scale)
         x1 = self.x
         y1 = self.y
         my_rect = pygame.Rect(x1, y1, self.width * self.scale, self.height * self.scale)
