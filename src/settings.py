@@ -1,3 +1,8 @@
+import pygame
+
+#Clock
+FPSCLOCK = pygame.time.Clock()
+
 # Tela
 WIDTH = 1000
 HEIGHT = 800 
