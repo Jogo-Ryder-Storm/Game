@@ -1,12 +1,12 @@
 import pygame
-
 pygame.mixer.init()
+
 #Clock
 FPSCLOCK = pygame.time.Clock()
 
 # Tela
-WIDTH = 1000
-HEIGHT = 800 
+WIDTH = 1280
+HEIGHT = 720
 
 # Cores
 BLACK = (  0,  0,  0)
