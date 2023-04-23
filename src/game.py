@@ -29,6 +29,9 @@ class Game():
 
                 #Key event Player
                 if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        pygame.quit()
+                        exit()
                     if event.key == K_LEFT:
                         player.actualDirection = player.directions[0]
                         player.currentFrame = player.walkSpriteFrame[0]
