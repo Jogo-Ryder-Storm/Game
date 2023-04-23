@@ -46,7 +46,7 @@ class Menu():
         else:
             self.fullscreen = False
             self.btn_screen = Button("white", (WIDTH/2) - 125, 480, "Tela cheia", self.screen_change)
-            pygame.display.set_mode((WIDTH, HEIGHT))
+            self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         
     def scene_options(self):
         self.state = 3
