@@ -8,6 +8,7 @@ from src.settings import *
 from src.spritesheet import SpriteSheet
 from src.entities.Player import Player
 from src.entities.Entity import Entity
+from src.textbox import Textbox
 
 class Game():
     def __init__(self):
@@ -20,6 +21,7 @@ class Game():
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1)
+        textbox = Textbox("level3")
         while self.active:
             screen.fill(BLACK)
             for event in pygame.event.get(): # User did something
@@ -50,6 +52,11 @@ class Game():
                         player.actualDirection = player.directions[1]
                         player.down = True
                         player.cur_frame = 0
+                    if event.key == K_g:
+                        if textbox.active:
+                            textbox.active = False
+                        else:
+                            textbox.active = True
                 if event.type == KEYUP:
                     if event.key == K_LEFT:
                         player.left = False
@@ -81,9 +88,13 @@ class Game():
             else:
                 player.colisao = False
             
-            player.block()
-            player.Move()    
             player.Draw(screen)
             deskobj.Draw(screen)
+            if(textbox.active == True):
+                textbox.draw()
+            else:      
+                player.block()
+                player.Move()    
+            
             pygame.display.flip()
             FPSCLOCK.tick(30)
