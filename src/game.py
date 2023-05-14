@@ -30,7 +30,7 @@ class Game():
                     exit()
 
                 #Key event Player
-                if event.type == KEYDOWN:
+                if event.type == KEYDOWN and textbox.active == False:
                     if event.key == K_ESCAPE:
                         pygame.quit()
                         exit()
@@ -53,11 +53,22 @@ class Game():
                         player.down = True
                         player.cur_frame = 0
                     if event.key == K_g:
-                        if textbox.active:
-                            textbox.active = False
-                        else:
-                            textbox.active = True
-                if event.type == KEYUP:
+                        textbox.active = True
+                elif event.type == KEYDOWN and textbox.active == True:
+                    player.left = False
+                    player.right = False
+                    player.up = False
+                    player.down = False
+                    if event.key == K_g:
+                        textbox.active = False
+                        textbox.esc = 0
+                    if event.key == K_LEFT:
+                        textbox.esc -= 1
+                        textbox.change_esc()
+                    if event.key == K_RIGHT:
+                        textbox.esc += 1
+                        textbox.change_esc()
+                if event.type == KEYUP and textbox.active == False:
                     if event.key == K_LEFT:
                         player.left = False
                         player.cur_frame = 0
@@ -80,8 +91,8 @@ class Game():
             if(player.y > HEIGHT-140):
                 player.y = HEIGHT-140
 
-            pygame.draw.rect(screen, RED, (player.x, player.y, player.width * player.scale, player.height * player.scale), 3)   
-            pygame.draw.rect(screen, (0, 100, 255), (deskobj.x, deskobj.y, deskobj.width, deskobj.height), 3) 
+            #pygame.draw.rect(screen, RED, (player.x, player.y, player.width * player.scale, player.height * player.scale), 3)   
+            #pygame.draw.rect(screen, (0, 100, 255), (deskobj.x, deskobj.y, deskobj.width, deskobj.height), 3) 
 
             if(player.isColliding(deskobj)):
                 player.colisao = True
