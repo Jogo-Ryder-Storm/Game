@@ -42,12 +42,16 @@ class Player(Entity):
             if(self.up or self.down or self.left or self.right):
                 self.state = self.currentFrame
                 if(self.up):
+                    self.actualDirection = self.directions[3]
                     self.y -= self.speed
                 elif(self.down):
+                    self.actualDirection = self.directions[1]
                     self.y += self.speed
                 if(self.left):
+                    self.actualDirection = self.directions[0]
                     self.x -= self.speed
                 elif(self.right):
+                    self.actualDirection = self.directions[2]
                     self.x += self.speed
             else:
                 if(self.currentFrame == self.walkSpriteFrame[0]):
@@ -71,10 +75,16 @@ class Player(Entity):
                 self.colisao = False
 
     def getPlayerFront(self, screen):
-        if self.currentFrame == 1:
+        if self.actualDirection == "left":
             pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+35, 20 , 20) ,4)
             pos = [self.x-40, self.y+35]
-        else:
+        if self.actualDirection == "right":
             pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+35, 20 , 20) ,4)
             pos = [self.x+130, self.y+35]
+        if self.actualDirection == "up":
+            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y-50, 20 , 20) ,4)
+            pos = [self.x+45, self.y-50]
+        if self.actualDirection == "down":
+            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y+150, 20 , 20) ,4)
+            pos = [self.x+45, self.y+150]
         return pos
