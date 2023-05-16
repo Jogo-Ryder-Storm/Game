@@ -21,6 +21,9 @@ class Game():
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1)
+        deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1)
+
+
         textbox = Textbox("level3")
         while self.active:
             screen.fill(BLACK)
@@ -53,7 +56,9 @@ class Game():
                         player.down = True
                         player.cur_frame = 0
                     if event.key == K_g:
-                        textbox.active = True
+                        #textbox.active = True
+                        deskobj.checkHitBox(player.x, player.y)
+                        deskobj2.checkHitBox(player.x, player.y)
                 elif event.type == KEYDOWN and textbox.active == True:
                     player.left = False
                     player.right = False
@@ -94,18 +99,20 @@ class Game():
             #pygame.draw.rect(screen, RED, (player.x, player.y, player.width * player.scale, player.height * player.scale), 3)   
             #pygame.draw.rect(screen, (0, 100, 255), (deskobj.x, deskobj.y, deskobj.width, deskobj.height), 3) 
 
-            if(player.isColliding(deskobj)):
+            if(player.isColliding(deskobj) or player.isColliding(deskobj2)):
                 player.colisao = True
             else:
                 player.colisao = False
             
             player.Draw(screen)
             deskobj.Draw(screen)
+            deskobj2.Draw(screen)
             if(textbox.active == True):
                 textbox.draw()
             else:      
                 player.block()
                 player.Move()    
-            
+
+
             pygame.display.flip()
             FPSCLOCK.tick(30)
