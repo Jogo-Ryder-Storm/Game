@@ -55,10 +55,11 @@ class Game():
                         player.down = True
                         player.cur_frame = 0
                     if event.key == K_g:
-                        if deskobj.checkHitBox(player.x, player.y):
+                        pos = player.getPlayerFront(screen)
+                        if deskobj.checkHitBox(pos[0], pos[1]):
                             textbox.defineOption("mesa")
                             textbox.active = True
-                        if deskobj2.checkHitBox(player.x, player.y):
+                        if deskobj2.checkHitBox(pos[0], pos[1]):
                             textbox.defineOption("escada")
                             textbox.active = True
                 elif event.type == KEYDOWN and textbox.active == True:

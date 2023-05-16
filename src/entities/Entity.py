@@ -10,7 +10,7 @@ class Entity():
         self.height = height
         self.scale = scale
         self.textbox = textbox
-        self.hitbox = {"x":self.x-64, "y": self.y-70, "width":self.width*2, "height":self.height*2.5}
+        self.hitbox = {"x":self.x, "y": self.y, "width":self.width, "height":self.height}
 
     def Draw(self, screen):
         screen.blit(self.sprite,(self.x, self.y))
@@ -41,4 +41,4 @@ class Entity():
         if self.hitbox["x"] <= posx <= self.hitbox["x"] + self.hitbox["width"] and self.hitbox["y"] <= posy <= self.hitbox["y"] + self.hitbox["height"]:
             return True
         else:
-            print("Position is outside the rectangle")
+            print("fora do retangulo")

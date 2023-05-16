@@ -15,11 +15,14 @@ class Player(Entity):
     state = 0
     lastX = 0
     lastY = 0
+    frontPosition = (0,0)
     anim = []
     anim_steps = [9, 4, 9, 4]
     last_update = pygame.time.get_ticks()
     frame_tick = 120
     cur_frame = 0
+    height = 0
+    width = 0
     def __init__(self, sprite, x, y, speed, width, height, scale):
         super().__init__(sprite, x, y, speed, width, height, scale, "")
         j = 0
@@ -66,3 +69,12 @@ class Player(Entity):
                 self.x = self.lastX
                 self.y = self.lastY
                 self.colisao = False
+
+    def getPlayerFront(self, screen):
+        if self.currentFrame == 1:
+            pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+35, 20 , 20) ,4)
+            pos = [self.x-40, self.y+35]
+        else:
+            pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+35, 20 , 20) ,4)
+            pos = [self.x+130, self.y+35]
+        return pos
