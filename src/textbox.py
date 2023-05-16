@@ -19,7 +19,7 @@ def dividir_string(string, largura_maxima):
         return linhas
 
 class Textbox():
-    def __init__(self, text):
+    def __init__(self):
         self.active = False
         self.screen = pygame.display.get_surface()
         self.width = WIDTH/2
@@ -31,12 +31,18 @@ class Textbox():
         self.esc = 0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.color = WHITE
-        if(text == "level1"):
-            self.message = "level1"
-            self.options = ["Sim1", "Não1", "talvez"]
+        self.text = "mesa"
+        if(self.text == "mesa"):
+            self.message = "Voce deseja se esconder nesa mesa?"
+            self.options = ["Sim1", "Não"]
+        if(self.text == "escada"):
+            self.message = "Deseja descer as escadas?"
+            self.options = ["Sim", "Não"]
+        if(self.text == "elevador"):
+            self.message = "Deseja descer o elevador?"
+            self.options = ["Sim", "Não"]
         else:
-            self.message = "level22 2222222 2222222 22222222 222222 2222 a Testeaa aaaaa aaaaaa aaaaa aaaaaaaaa aaaaa"
-            self.options = ["Sim2", "Não2", "talvez"]
+            "Escolha um objeto par interagir"
         
     def run(self):
         while self.active:                    
@@ -68,3 +74,15 @@ class Textbox():
             tx.draw()
         self.screen.blit(self.arrow, (self.x + 5 + (self.esc / (len(self.options) - 1))*(self.width - 100), self.y + self.height - 40))
 
+    def defineOption(self, text):
+        if(text == "mesa"):
+            self.message = "Voce deseja se esconder nesa mesa?"
+            self.options = ["Sim1", "Não"]
+        if(text == "escada"):
+            self.message = "Deseja descer as escadas?"
+            self.options = ["Sim", "Não"]
+        if(text == "elevador"):
+            self.message = "Deseja descer o elevador?"
+            self.options = ["Sim", "Não"]
+        else:
+            "Escolha um objeto par interagir"

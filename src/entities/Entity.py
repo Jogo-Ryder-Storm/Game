@@ -1,7 +1,7 @@
 import pygame
 
 class Entity():
-    def __init__(self, sprite, x, y, speed, width, height, scale):
+    def __init__(self, sprite, x, y, speed, width, height, scale, textbox):
         self.sprite = sprite
         self.x = x
         self.y = y
@@ -9,6 +9,7 @@ class Entity():
         self.width = width
         self.height = height
         self.scale = scale
+        self.textbox = textbox
         self.hitbox = {"x":self.x-64, "y": self.y-70, "width":self.width*2, "height":self.height*2.5}
 
     def Draw(self, screen):
@@ -38,6 +39,6 @@ class Entity():
     
     def checkHitBox(self, posx, posy):
         if self.hitbox["x"] <= posx <= self.hitbox["x"] + self.hitbox["width"] and self.hitbox["y"] <= posy <= self.hitbox["y"] + self.hitbox["height"]:
-            print("Position is inside the rectangle")
+            return True
         else:
             print("Position is outside the rectangle")

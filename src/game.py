@@ -20,11 +20,10 @@ class Game():
         player = Player(sprite, 50, 50, 10, 64, 70, 2)
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
-        deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1)
-        deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1)
+        deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
+        deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
+        textbox = Textbox()
 
-
-        textbox = Textbox("level3")
         while self.active:
             screen.fill(BLACK)
             for event in pygame.event.get(): # User did something
@@ -56,9 +55,12 @@ class Game():
                         player.down = True
                         player.cur_frame = 0
                     if event.key == K_g:
-                        #textbox.active = True
-                        deskobj.checkHitBox(player.x, player.y)
-                        deskobj2.checkHitBox(player.x, player.y)
+                        if deskobj.checkHitBox(player.x, player.y):
+                            textbox.defineOption("mesa")
+                            textbox.active = True
+                        if deskobj2.checkHitBox(player.x, player.y):
+                            textbox.defineOption("escada")
+                            textbox.active = True
                 elif event.type == KEYDOWN and textbox.active == True:
                     player.left = False
                     player.right = False

@@ -21,7 +21,7 @@ class Player(Entity):
     frame_tick = 120
     cur_frame = 0
     def __init__(self, sprite, x, y, speed, width, height, scale):
-        super().__init__(sprite, x, y, speed, width, height, scale)
+        super().__init__(sprite, x, y, speed, width, height, scale, "")
         j = 0
         for animation in self.anim_steps:
             temp_list = []
