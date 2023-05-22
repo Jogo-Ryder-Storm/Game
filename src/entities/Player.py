@@ -2,7 +2,7 @@ import pygame
 from src.entities.Entity import Entity
 
 class Player(Entity):
-    life = 3
+    life = 2
     directions = ["left", "down", "right", "up"]
     actualDirection = directions[0]
     colisao = False
@@ -76,15 +76,15 @@ class Player(Entity):
 
     def getPlayerFront(self, screen):
         if self.actualDirection == "left":
-            pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+35, 20 , 20) ,4)
-            pos = [self.x-40, self.y+35]
+            #pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+60, 20 , 20) ,4)
+            pos = [self.x-40, self.y+60]
         if self.actualDirection == "right":
-            pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+35, 20 , 20) ,4)
-            pos = [self.x+130, self.y+35]
+            #pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+60, 20 , 20) ,4)
+            pos = [self.x+130, self.y+60]
         if self.actualDirection == "up":
-            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y-50, 20 , 20) ,4)
+            #pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y-50, 20 , 20) ,4)
             pos = [self.x+45, self.y-50]
         if self.actualDirection == "down":
-            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y+150, 20 , 20) ,4)
+            #pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y+150, 20 , 20) ,4)
             pos = [self.x+45, self.y+150]
         return pos

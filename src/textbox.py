@@ -77,7 +77,7 @@ class Textbox():
     def defineOption(self, text):
         if(text == "mesa"):
             self.message = "Voce deseja se esconder nesa mesa?"
-            self.options = ["Sim1", "Não"]
+            self.options = ["Sim", "Não"]
         if(text == "escada"):
             self.message = "Deseja descer as escadas?"
             self.options = ["Sim", "Não"]
