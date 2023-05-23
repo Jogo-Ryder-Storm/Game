@@ -23,6 +23,8 @@ class Game():
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
         textbox = Textbox()
+        self.fase = 1
+        self.resposta = ""
 
         while self.active:
             screen.fill(BLACK)
@@ -68,14 +70,14 @@ class Game():
                     player.up = False
                     player.down = False
                     if event.key == K_g:
-                        textbox.active = False
-                        textbox.esc = 0
+                       self.resposta = textbox.getChoice()
                     if event.key == K_LEFT:
                         textbox.esc -= 1
                         textbox.change_esc()
                     if event.key == K_RIGHT:
                         textbox.esc += 1
                         textbox.change_esc()
+                    
                 if event.type == KEYUP and textbox.active == False:
                     if event.key == K_LEFT:
                         player.left = False
@@ -107,6 +109,12 @@ class Game():
             else:
                 player.colisao = False
             
+            if textbox.choiceMade == True:
+                if self.fase == 1:
+                    if self.resposta == "Sim":
+                        textbox.defineOption("fase-1-correto")
+                        textbox.active = True
+
             player.Draw(screen)
             deskobj.Draw(screen)
             deskobj2.Draw(screen)
