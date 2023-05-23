@@ -8,7 +8,7 @@ from src.settings import *
 from src.spritesheet import SpriteSheet
 from src.entities.Player import Player
 from src.entities.Entity import Entity
-from src.text import Text
+from src.UI import UI
 from src.textbox import Textbox
 
 class Game():
@@ -26,6 +26,7 @@ class Game():
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
         textbox = Textbox()
+        ui = UI()
         self.fase = 1
         self.resposta = ""
         self.time = 0
@@ -145,13 +146,7 @@ class Game():
 
             self.time = int(seconds)
             text_content = str(self.max_time - self.time)
-            text_timer = Text(None, 30, "Timer:", WHITE, [30, 30])
-            text_surface = Text(None, 30, text_content, WHITE, [100, 30])
-            player_life_text = Text(None, 30, "Vida:", WHITE, [30, HEIGHT - 50])
-            player_life = Text(None, 30, str(player.life), WHITE, [100, HEIGHT - 50])
-            text_timer.draw()
-            text_surface.draw()
-            player_life_text.draw()
-            player_life.draw()
+            ui.run(text_content, str(player.life))
+
             pygame.display.flip()
             FPSCLOCK.tick(30)
