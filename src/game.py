@@ -8,29 +8,31 @@ from src.settings import *
 from src.spritesheet import SpriteSheet
 from src.entities.Player import Player
 from src.entities.Entity import Entity
+from src.UI import UI
 from src.textbox import Textbox
-from src.timer import Timer
 
 class Game():
     def __init__(self):
         self.active = True
+        self.life = 3
     def run(self):
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
         player = Player(sprite, 50, 50, 10, 64, 70, 2)
+        player.life = self.life
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
         textbox = Textbox()
-        timer = Timer(30,30)
+        ui = UI()
         self.fase = 1
         self.resposta = ""
-        
+        self.time = 0
+        self.max_time = 10
+        self.next_stage = False
         start_ticks=pygame.time.get_ticks() #starter tick
-
-        
 
         while self.active:
             screen.fill(BLACK)
@@ -120,25 +122,31 @@ class Game():
                     if self.resposta == "Sim":
                         textbox.defineOption("fase-1-correto")
                         textbox.active = True
-
-            if timer.time > 9:
-                textbox.defineOption("fase-1-incorreto")
-                textbox.active = True
+                        self.next_stage = True
+                    
+            if (self.time > 9 and self.next_stage == False):
+                self.life -= 1
+                self.run()
             else:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
-                
+        
+            if self.life <= 0:
+                from src.gameover import Gameover
+                gameouver = Gameover()
+                gameouver.run()
 
             player.Draw(screen)
             deskobj.Draw(screen)
             deskobj2.Draw(screen)
-            timer.draw(seconds)
             if(textbox.active == True):
                 textbox.draw()
             else:      
                 player.block()
                 player.Move()    
 
-            
-            
+            self.time = int(seconds)
+            text_content = str(self.max_time - self.time)
+            ui.run(text_content, str(player.life))
+
             pygame.display.flip()
             FPSCLOCK.tick(30)
