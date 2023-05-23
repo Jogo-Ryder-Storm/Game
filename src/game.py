@@ -8,16 +8,19 @@ from src.settings import *
 from src.spritesheet import SpriteSheet
 from src.entities.Player import Player
 from src.entities.Entity import Entity
+from src.text import Text
 from src.textbox import Textbox
 
 class Game():
     def __init__(self):
         self.active = True
+        self.life = 3
     def run(self):
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
         player = Player(sprite, 50, 50, 10, 64, 70, 2)
+        player.life = self.life
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
@@ -26,7 +29,8 @@ class Game():
         self.fase = 1
         self.resposta = ""
         self.time = 0
-        font = pygame.font.Font(None, 36)
+        self.max_time = 10
+        self.next_stage = False
         start_ticks=pygame.time.get_ticks() #starter tick
 
         while self.active:
@@ -117,13 +121,18 @@ class Game():
                     if self.resposta == "Sim":
                         textbox.defineOption("fase-1-correto")
                         textbox.active = True
-
-            if self.time > 9:
-                textbox.defineOption("fase-1-incorreto")
-                textbox.active = True
+                        self.next_stage = True
+                    
+            if (self.time > 9 and self.next_stage == False):
+                self.life -= 1
+                self.run()
             else:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
-                
+        
+            if self.life <= 0:
+                from src.gameover import Gameover
+                gameouver = Gameover()
+                gameouver.run()
 
             player.Draw(screen)
             deskobj.Draw(screen)
@@ -134,17 +143,15 @@ class Game():
                 player.block()
                 player.Move()    
 
-
             self.time = int(seconds)
-            text_content = str(self.time)
-            # Render the text as an image surface
-            text_surface = font.render(text_content, True, WHITE)
-            # Get the rectangular bounds of the text surface
-            text_rect = text_surface.get_rect()
-            # Center the text on the screen
-            text_rect.center = (30, 30)
-            # Blit the text surface onto the window
-            screen.blit(text_surface, text_rect)
-
+            text_content = str(self.max_time - self.time)
+            text_timer = Text(None, 30, "Timer:", WHITE, [30, 30])
+            text_surface = Text(None, 30, text_content, WHITE, [100, 30])
+            player_life_text = Text(None, 30, "Vida:", WHITE, [30, HEIGHT - 50])
+            player_life = Text(None, 30, str(player.life), WHITE, [100, HEIGHT - 50])
+            text_timer.draw()
+            text_surface.draw()
+            player_life_text.draw()
+            player_life.draw()
             pygame.display.flip()
             FPSCLOCK.tick(30)
