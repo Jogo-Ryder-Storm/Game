@@ -118,6 +118,13 @@ class Game():
                         textbox.defineOption("fase-1-correto")
                         textbox.active = True
 
+            if self.time > 9:
+                textbox.defineOption("fase-1-incorreto")
+                textbox.active = True
+            else:
+                 seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
+                
+
             player.Draw(screen)
             deskobj.Draw(screen)
             deskobj2.Draw(screen)
@@ -128,7 +135,6 @@ class Game():
                 player.Move()    
 
 
-            seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
             self.time = int(seconds)
             text_content = str(self.time)
             # Render the text as an image surface
