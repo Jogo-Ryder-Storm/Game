@@ -25,6 +25,9 @@ class Game():
         textbox = Textbox()
         self.fase = 1
         self.resposta = ""
+        self.time = 0
+        font = pygame.font.Font(None, 36)
+        start_ticks=pygame.time.get_ticks() #starter tick
 
         while self.active:
             screen.fill(BLACK)
@@ -124,6 +127,18 @@ class Game():
                 player.block()
                 player.Move()    
 
+
+            seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
+            self.time = int(seconds)
+            text_content = str(self.time)
+            # Render the text as an image surface
+            text_surface = font.render(text_content, True, WHITE)
+            # Get the rectangular bounds of the text surface
+            text_rect = text_surface.get_rect()
+            # Center the text on the screen
+            text_rect.center = (30, 30)
+            # Blit the text surface onto the window
+            screen.blit(text_surface, text_rect)
 
             pygame.display.flip()
             FPSCLOCK.tick(30)
