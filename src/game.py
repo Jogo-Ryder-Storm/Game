@@ -9,6 +9,7 @@ from src.spritesheet import SpriteSheet
 from src.entities.Player import Player
 from src.entities.Entity import Entity
 from src.textbox import Textbox
+from src.timer import Timer
 
 class Game():
     def __init__(self):
@@ -23,11 +24,13 @@ class Game():
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
         textbox = Textbox()
+        timer = Timer(30,30)
         self.fase = 1
         self.resposta = ""
-        self.time = 0
-        font = pygame.font.Font(None, 36)
+        
         start_ticks=pygame.time.get_ticks() #starter tick
+
+        
 
         while self.active:
             screen.fill(BLACK)
@@ -118,7 +121,7 @@ class Game():
                         textbox.defineOption("fase-1-correto")
                         textbox.active = True
 
-            if self.time > 9:
+            if timer.time > 9:
                 textbox.defineOption("fase-1-incorreto")
                 textbox.active = True
             else:
@@ -128,23 +131,14 @@ class Game():
             player.Draw(screen)
             deskobj.Draw(screen)
             deskobj2.Draw(screen)
+            timer.draw(seconds)
             if(textbox.active == True):
                 textbox.draw()
             else:      
                 player.block()
                 player.Move()    
 
-
-            self.time = int(seconds)
-            text_content = str(self.time)
-            # Render the text as an image surface
-            text_surface = font.render(text_content, True, WHITE)
-            # Get the rectangular bounds of the text surface
-            text_rect = text_surface.get_rect()
-            # Center the text on the screen
-            text_rect.center = (30, 30)
-            # Blit the text surface onto the window
-            screen.blit(text_surface, text_rect)
-
+            
+            
             pygame.display.flip()
             FPSCLOCK.tick(30)
