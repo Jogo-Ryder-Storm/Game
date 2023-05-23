@@ -23,6 +23,7 @@ class Game():
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
         textbox = Textbox()
+       
 
         while self.active:
             screen.fill(BLACK)
@@ -68,14 +69,14 @@ class Game():
                     player.up = False
                     player.down = False
                     if event.key == K_g:
-                        textbox.active = False
-                        textbox.esc = 0
+                        print(textbox.getChoice())
                     if event.key == K_LEFT:
                         textbox.esc -= 1
                         textbox.change_esc()
                     if event.key == K_RIGHT:
                         textbox.esc += 1
                         textbox.change_esc()
+                    
                 if event.type == KEYUP and textbox.active == False:
                     if event.key == K_LEFT:
                         player.left = False
@@ -115,7 +116,6 @@ class Game():
             else:      
                 player.block()
                 player.Move()    
-
 
             pygame.display.flip()
             FPSCLOCK.tick(30)

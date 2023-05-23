@@ -21,6 +21,7 @@ def dividir_string(string, largura_maxima):
 class Textbox():
     def __init__(self):
         self.active = False
+        self.choiceMade = False
         self.screen = pygame.display.get_surface()
         self.width = WIDTH/2
         self.height = HEIGHT/3
@@ -73,6 +74,12 @@ class Textbox():
             tx = Text(None, 35, option, BLACK, (self.x + 20 + (i/(len(self.options) - 1))*(self.width - 100), self.y + self.height - 40))
             tx.draw()
         self.screen.blit(self.arrow, (self.x + 5 + (self.esc / (len(self.options) - 1))*(self.width - 100), self.y + self.height - 40))
+        return self.esc
+    
+    def getChoice(self):
+        self.active = False
+        self.choiceMade = True
+        return self.options[self.esc]
 
     def defineOption(self, text):
         if(text == "mesa"):
@@ -84,5 +91,11 @@ class Textbox():
         if(text == "elevador"):
             self.message = "Deseja descer o elevador?"
             self.options = ["Sim", "Não"]
+        if(text == "fase-1-correto"):
+            self.message = "Escolha Correta! No meio de um terremoto o ideal é você se esconder em baixo de uma um lugar com cobertura como uma mesa para te proteger de coisas que podem cair na sua cabeça."
+            self.options = ["Continuar"]
+        if(text == "fase-1-incorreto"):
+            self.message = "Escolha Errada!"
+            self.options = ["Continuar"]
         else:
             "Escolha um objeto par interagir"
