@@ -23,7 +23,7 @@ class Game():
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
         textbox = Textbox()
-       
+        self.fase = "fase1"
 
         while self.active:
             screen.fill(BLACK)

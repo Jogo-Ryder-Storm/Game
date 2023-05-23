@@ -32,18 +32,7 @@ class Textbox():
         self.esc = 0
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.color = WHITE
-        self.text = "mesa"
-        if(self.text == "mesa"):
-            self.message = "Voce deseja se esconder nesa mesa?"
-            self.options = ["Sim1", "Não"]
-        if(self.text == "escada"):
-            self.message = "Deseja descer as escadas?"
-            self.options = ["Sim", "Não"]
-        if(self.text == "elevador"):
-            self.message = "Deseja descer o elevador?"
-            self.options = ["Sim", "Não"]
-        else:
-            "Escolha um objeto par interagir"
+        self.text = ""
         
     def run(self):
         while self.active:                    
