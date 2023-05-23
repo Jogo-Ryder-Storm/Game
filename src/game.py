@@ -25,6 +25,9 @@ class Game():
         textbox = Textbox()
         self.fase = 1
         self.resposta = ""
+        self.time = 0
+        font = pygame.font.Font(None, 36)
+        start_ticks=pygame.time.get_ticks() #starter tick
 
         while self.active:
             screen.fill(BLACK)
@@ -115,6 +118,13 @@ class Game():
                         textbox.defineOption("fase-1-correto")
                         textbox.active = True
 
+            if self.time > 9:
+                textbox.defineOption("fase-1-incorreto")
+                textbox.active = True
+            else:
+                 seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
+                
+
             player.Draw(screen)
             deskobj.Draw(screen)
             deskobj2.Draw(screen)
@@ -124,6 +134,17 @@ class Game():
                 player.block()
                 player.Move()    
 
+
+            self.time = int(seconds)
+            text_content = str(self.time)
+            # Render the text as an image surface
+            text_surface = font.render(text_content, True, WHITE)
+            # Get the rectangular bounds of the text surface
+            text_rect = text_surface.get_rect()
+            # Center the text on the screen
+            text_rect.center = (30, 30)
+            # Blit the text surface onto the window
+            screen.blit(text_surface, text_rect)
 
             pygame.display.flip()
             FPSCLOCK.tick(30)
