@@ -28,4 +28,4 @@ class TextFile():
         arquivo.close()
 
         # Exibir o conteúdo lido
-        print(conteudo)
+        #print(conteudo)
