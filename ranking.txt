@@ -1,8 +1,0 @@
-Player;8;3
-Player;7;3
-Player;3;3
-Player;9;2
-Player;5;2
-Player;9;1
-Player;6;1
-Player;3;1
