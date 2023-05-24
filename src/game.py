@@ -195,10 +195,9 @@ class Game():
                 player.Move()    
 
             if self.ended == True:
-
-                textFile.writePlayer("Player", str(player.time), str(player.life))
-                textFile.readFile()
-
+                textFile.copyFileToTemp()
+                textFile.readFile("Player", str(player.time), str(player.life))
+                
                 self.ended = False
 
             self.time = int(seconds)

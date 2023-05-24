@@ -1,31 +1,63 @@
 # Imports
 import pygame, sys
 from pygame.locals import *
-
+import os
 
 class TextFile():
     def __init__(self, fileName):
        self.file = fileName
-
-    def writePlayer(self, name, time, life):
-        arquivo = open(self.file, "w")
-        
-        arquivo.write(name)
-        arquivo.write(", ")
-        arquivo.write(time)
-        arquivo.write(", ")
-        arquivo.write(life)
-                
-        arquivo.close()
+       self.tempFile = "rankingtemp.txt"
     
-    def readFile(self):
-        # Abrir o arquivo em modo de append
-        arquivo = open(self.file, "r")
+    def readFile(self, newName, newTime, newLife):
+        arquivo = open(self.file, "w")
 
-        conteudo = arquivo.read()
-        
-        # Fechar o arquivo
+        inserted = False
+        with open(self.tempFile) as file:
+            for item in file:
+                line = item.split(";")
+                name = line[0]
+                time = line[1]
+                life = line[2]
+
+                if int(newLife) > int(life) and inserted == False:
+                    arquivo.write(newName)
+                    arquivo.write(";")
+                    arquivo.write(newTime)
+                    arquivo.write(";")
+                    arquivo.write(newLife)
+                    arquivo.write("\n")
+                    inserted = True
+                elif int(newLife) == int(life) and inserted == False: 
+                    if int(newTime) >= int(time) and inserted == False:
+                        arquivo.write(newName)
+                        arquivo.write(";")
+                        arquivo.write(newTime)
+                        arquivo.write(";")
+                        arquivo.write(newLife)
+                        arquivo.write("\n")
+                        inserted = True
+
+                arquivo.write(name)
+                arquivo.write(";")
+                arquivo.write(time)
+                arquivo.write(";")
+                arquivo.write(life)
+
+        if inserted == False:
+            if os.stat(self.tempFile).st_size != 0:
+                arquivo.write("\n") 
+            arquivo.write(newName)
+            arquivo.write(";")
+            arquivo.write(newTime)
+            arquivo.write(";")
+            arquivo.write(newLife)         
+
+
         arquivo.close()
 
-        # Exibir o conteúdo lido
-        #print(conteudo)
+
+    def copyFileToTemp(self):
+        with open("ranking.txt") as f:
+            with open("rankingtemp.txt", "w") as f1:
+                for line in f:
+                    f1.write(line)
