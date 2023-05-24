@@ -39,12 +39,6 @@ class Game():
         self.max_time = 10
         self.next_stage = False
 
-        pos_map_x = 0
-        pos_map_y = 0
-
-        cord_x = 1
-        cord_y = 1
-
         tmxdata = load_pygame('map/lvlone/Office2Official.tmx')
         
         
