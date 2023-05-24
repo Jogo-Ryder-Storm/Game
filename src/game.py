@@ -39,9 +39,52 @@ class Game():
         self.max_time = 10
         self.next_stage = False
 
+        pos_map_x = 0
+        pos_map_y = 0
+
+        cord_x = 1
+        cord_y = 1
+
+        tmxdata = load_pygame('map/lvlone/office.tmx')
+        image = tmxdata.get_tile_image
+        
+        
+       
+
 
         while self.active:
             screen.fill(BLACK)
+
+
+
+
+            imagenew = tmxdata.get_tile_image_by_gid
+            for layer in tmxdata.visible_layers:
+                if isinstance(layer, pytmx.TiledTileLayer):
+                    for x, y, gid, in layer:
+                        tile = imagenew(gid)
+                        if tile:
+                            calc_x = x * tmxdata.tilewidth + tmxdata.tileheight
+                            calc_y =  x*(-0.5 * tmxdata.tilewidth) + y *(0.5 * tmxdata.tileheight)
+                            print(x, y)
+                            screen.blit(tile, ((x * tmxdata.tilewidth), ((y * tmxdata.tileheight)/ 2)))
+                
+
+                #     image = tmxdata.get_tile_image
+                #     screen.blit(image, (0, 0))
+                #     cord_x += 1
+                #     cord_y += 1
+
+                #     pos_map_x += 1
+                #     if(pos_map_x == tmxdata.width - 1):
+                #         pos_map_x = 0
+                
+                # pos_map_y += 1
+                # if(pos_map_y == tmxdata.height - 1):
+                #     pos_map_y = 0
+
+            
+
             for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
                     pygame.quit()
@@ -165,6 +208,6 @@ class Game():
             text_content = str(self.max_time - self.time)
             ui.run(text_content, str(player.life))
 
-            print(player.time)
+            # print(player.time)
             pygame.display.flip()
             FPSCLOCK.tick(30)
