@@ -155,16 +155,14 @@ class Game():
                 player.Move()    
 
             if self.ended == True:
-
-                textFile.writePlayer("Player", str(player.time), str(player.life))
-                textFile.readFile()
-
+                textFile.copyFileToTemp()
+                textFile.readFile("Player", str(player.time), str(player.life))
+                
                 self.ended = False
 
             self.time = int(seconds)
             text_content = str(self.max_time - self.time)
             ui.run(text_content, str(player.life))
 
-            print(player.time)
             pygame.display.flip()
             FPSCLOCK.tick(30)
