@@ -23,6 +23,7 @@ class Player(Entity):
     cur_frame = 0
     height = 0
     width = 0
+    time = 0
     def __init__(self, sprite, x, y, speed, width, height, scale):
         super().__init__(sprite, x, y, speed, width, height, scale, "")
         j = 0
