@@ -45,8 +45,7 @@ class Game():
         cord_x = 1
         cord_y = 1
 
-        tmxdata = load_pygame('map/lvlone/office.tmx')
-        image = tmxdata.get_tile_image
+        tmxdata = load_pygame('map/lvlone/Office2Official.tmx')
         
         
        
@@ -64,10 +63,14 @@ class Game():
                     for x, y, gid, in layer:
                         tile = imagenew(gid)
                         if tile:
-                            calc_x = (math.sqrt(2) * tmxdata.width * x  - math.sqrt(2) * tmxdata.height * y ) / 0.5
-                            calc_y =  math.sqrt(2) * tmxdata.width * x  + (math.sqrt(2) * tmxdata.height * y) / 100
-                            print(x, y)
-                            screen.blit(tile, (calc_x, calc_y))
+                            calc_x = (math.sqrt(2) * tmxdata.width * x  - math.sqrt(2) * tmxdata.height * y ) / 0.885
+                            calc_y =  (math.sqrt(2) * tmxdata.width * x  + math.sqrt(2) * tmxdata.height * y) / 1.77
+                            # print(x, y)
+                            if layer.name == "background":
+                                screen.blit(tile, (calc_x+610, calc_y+80))
+                            else:
+                                screen.blit(tile, (calc_x+610, calc_y-20)) 
+
                 
 
                 #     image = tmxdata.get_tile_image
