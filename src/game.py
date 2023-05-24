@@ -64,10 +64,10 @@ class Game():
                     for x, y, gid, in layer:
                         tile = imagenew(gid)
                         if tile:
-                            calc_x = x * tmxdata.tilewidth + tmxdata.tileheight
-                            calc_y =  x*(-0.5 * tmxdata.tilewidth) + y *(0.5 * tmxdata.tileheight)
+                            calc_x = (math.sqrt(2) * tmxdata.width * x  - math.sqrt(2) * tmxdata.height * y ) / 0.5
+                            calc_y =  math.sqrt(2) * tmxdata.width * x  + (math.sqrt(2) * tmxdata.height * y) / 100
                             print(x, y)
-                            screen.blit(tile, ((x * tmxdata.tilewidth), ((y * tmxdata.tileheight)/ 2)))
+                            screen.blit(tile, (calc_x, calc_y))
                 
 
                 #     image = tmxdata.get_tile_image
