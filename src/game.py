@@ -11,6 +11,7 @@ from src.entities.Entity import Entity
 from src.textbox import Textbox
 from src.timer import Timer
 from src.textfile import TextFile
+from src.UI import UI
 
 class Game():
     def __init__(self):
@@ -32,7 +33,14 @@ class Game():
         start_ticks=pygame.time.get_ticks() #starter tick
         
         self.ended = False
-     
+
+        ui = UI()
+        self.fase = 1
+        self.resposta = ""
+        self.time = 0
+        self.max_time = 10
+        self.next_stage = False
+        start_ticks=pygame.time.get_ticks() #starter tick
 
         while self.active:
             screen.fill(BLACK)
@@ -127,9 +135,16 @@ class Game():
                         textbox.choiceMade = False
                         
 
-            if timer.time > 9:
-                textbox.defineOption("fase-1-incorreto")
-                textbox.active = True
+            if textbox.choiceMade == True:
+                if self.fase == 1:
+                    if self.resposta == "Sim":
+                        textbox.defineOption("fase-1-correto")
+                        textbox.active = True
+                        self.next_stage = True
+                    
+            if (self.time > 9 and self.next_stage == False):
+                self.life -= 1
+                self.run()
             else:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
                 
