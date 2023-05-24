@@ -10,6 +10,9 @@ from src.entities.Player import Player
 from src.entities.Entity import Entity
 from src.UI import UI
 from src.textbox import Textbox
+from src.timer import Timer
+from src.textfile import TextFile
+
 
 class Game():
     def __init__(self):
@@ -26,6 +29,15 @@ class Game():
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
         textbox = Textbox()
+
+        timer = Timer(30,30)
+        textFile = TextFile("ranking.txt")
+        self.fase = 1
+        self.resposta = ""
+        start_ticks=pygame.time.get_ticks() #starter tick
+        
+        self.ended = False
+
         ui = UI()
         self.fase = 1
         self.resposta = ""
@@ -33,6 +45,7 @@ class Game():
         self.max_time = 10
         self.next_stage = False
         start_ticks=pygame.time.get_ticks() #starter tick
+
 
         while self.active:
             screen.fill(BLACK)
@@ -117,6 +130,7 @@ class Game():
             else:
                 player.colisao = False
             
+  
             if textbox.choiceMade == True:
                 if self.fase == 1:
                     if self.resposta == "Sim":
@@ -144,9 +158,18 @@ class Game():
                 player.block()
                 player.Move()    
 
+
+            if self.ended == True:
+
+                textFile.writePlayer("Player", str(player.time), str(player.life))
+                textFile.readFile()
+
+                self.ended = False
+
             self.time = int(seconds)
             text_content = str(self.max_time - self.time)
             ui.run(text_content, str(player.life))
+
 
             pygame.display.flip()
             FPSCLOCK.tick(30)
