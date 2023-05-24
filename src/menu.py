@@ -5,7 +5,6 @@ from pygame.locals import *
 # Modulos
 from src.settings import *
 from src.text import Text
-from src.game import Game
 from src.button import Button
 
 class Menu():
@@ -52,6 +51,7 @@ class Menu():
         self.state = 3
 
     def next_scene(self):
+        from src.game import Game
         game = Game()
         game.run()
         self.active = False
