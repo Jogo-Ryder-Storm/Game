@@ -19,11 +19,6 @@ class TextFile():
                 time = line[1]
                 life = line[2]
 
-                print("\n")
-                print(newLife, "|", newTime)
-                print(life, "|", time)
-                print("\n")
-
                 if int(newLife) > int(life) and inserted == False:
                     arquivo.write(newName)
                     arquivo.write(";")
@@ -48,7 +43,6 @@ class TextFile():
                 arquivo.write(";")
                 arquivo.write(life)
 
-        
         if inserted == False:
             if os.stat(self.tempFile).st_size != 0:
                 arquivo.write("\n") 
