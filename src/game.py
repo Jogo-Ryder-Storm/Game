@@ -21,7 +21,7 @@ class Game():
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
-        player = Player(sprite, 50, 50, 10, 64, 70, 2)
+        player = Player(sprite, 50, 50, 10, 64, 70, 1)
         player.life = self.life
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
