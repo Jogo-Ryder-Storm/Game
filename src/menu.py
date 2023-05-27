@@ -30,8 +30,13 @@ class Menu():
         self.state = 1
         self.fullscreen = False
         self.music = True
-        self.title = Text(None, 60, "Ryder Storm", WHITE, [(WIDTH/2) - 125, (HEIGHT/2) - 250])
+        self.player_name = ""
+        with open('playerName.txt') as f:
+            contents = f.read()
+            self.player_name = contents
+        self.title = Text(None, 60, "Ryder Storm", WHITE, [(WIDTH/2), (HEIGHT/2) - 250])
         self.sub = Text(None, 31, "Pressione ENTER para jogar", WHITE, [(WIDTH/2) - 140, HEIGHT - 200])
+        self.name = Text(None, 31, "Olá " + self.player_name + "!", WHITE, [10, HEIGHT - 30])
         self.btn_play = Button("white", (WIDTH/2) - 125, 400, "Jogar", self.next_scene)
         self.btn_options = Button("white", (WIDTH/2) - 125, 480, "Opções", self.scene_options)
         self.btn_comandos = Button("white", (WIDTH/2) - 125, 560, "Sobre", self.comandos)
@@ -101,7 +106,9 @@ class Menu():
                     self.btn_back.events(event)
 
             self.screen.fill(BLACK)
-            self.title.draw()
+            self.title.draw_center()
+            if self.state != 1:
+                self.name.draw() 
             if self.state == 1:
                 self.sub.drawFade()
             elif self.state == 2:
