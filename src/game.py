@@ -12,12 +12,12 @@ from src.UI import UI
 from src.textbox import Textbox
 from src.textfile import TextFile
 
-
 class Game():
     def __init__(self):
         self.active = True
         self.life = 3
-    def run(self):
+    def run(self, playername):
+        self.player_name = playername
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
@@ -176,7 +176,7 @@ class Game():
                     
             if (self.time > 9 and self.next_stage == False):
                 self.life -= 1
-                self.run()
+                self.run(self.player_name)
             else:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
         
@@ -196,7 +196,7 @@ class Game():
 
             if self.ended == True:
                 textFile.copyFileToTemp()
-                textFile.readFile("Player", str(player.time), str(player.life))
+                textFile.readFile(self.player_name, str(player.time), str(player.life))
                 
                 self.ended = False
 
