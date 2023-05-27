@@ -21,7 +21,7 @@ class Game():
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
-        player = Player(sprite, 50, 50, 10, 64, 70, 1)
+        player = Player(sprite, 600, 300, 10, 64, 70, 1)
         player.life = self.life
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
@@ -157,12 +157,12 @@ class Game():
 
             #pygame.draw.rect(screen, RED, (player.x, player.y, player.width * player.scale, player.height * player.scale), 3)   
             #pygame.draw.rect(screen, (0, 100, 255), (deskobj.x, deskobj.y, deskobj.width, deskobj.height), 3) 
-
+            '''
             if(player.isColliding(deskobj) or player.isColliding(deskobj2)):
                 player.colisao = True
             else:
                 player.colisao = False
-            
+            '''
   
             if textbox.choiceMade == True:
                 if self.fase == 1:
@@ -186,8 +186,8 @@ class Game():
                 gameouver.run()
 
             player.Draw(screen)
-            deskobj.Draw(screen)
-            deskobj2.Draw(screen)
+            #deskobj.Draw(screen)
+            #deskobj2.Draw(screen)
             if(textbox.active == True):
                 textbox.draw()
             else:      
@@ -204,6 +204,5 @@ class Game():
             text_content = str(self.max_time - self.time)
             ui.run(text_content, str(player.life))
 
-            # print(player.time)
             pygame.display.flip()
             FPSCLOCK.tick(30)
