@@ -17,7 +17,6 @@ class Game():
         self.active = True
         self.life = 3
     def run(self, playername):
-        self.player_name = playername
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
@@ -27,9 +26,19 @@ class Game():
         rectdesk = desk.get_rect()
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
-        textbox = Textbox()
 
+        area1 = Entity(desk, 70, 300, 0, 300, 180, 1, "level1")
+        area2 = Entity(desk, 500, 450, 0, 200, 150, 1, "level1")
+        area3 = Entity(desk, 500, 100, 0, 250, 150, 1, "level1")
+        area4 = Entity(desk, 700, 150, 0, 300, 200, 1, "level1")
+        area5 = Entity(desk, 950, 320, 0, 300, 200, 1, "level1")
+
+
+
+        textbox = Textbox()
         textFile = TextFile("ranking.txt")
+        self.player_name = playername
+
         self.fase = 1
         self.resposta = ""
         start_ticks=pygame.time.get_ticks() #starter tick
@@ -40,15 +49,9 @@ class Game():
         self.next_stage = False
 
         tmxdata = load_pygame('map/lvlone/Office2Official.tmx')
-        
-        
-       
-
 
         while self.active:
             screen.fill(BLACK)
-
-
 
 
             imagenew = tmxdata.get_tile_image_by_gid
@@ -57,31 +60,24 @@ class Game():
                     for x, y, gid, in layer:
                         tile = imagenew(gid)
                         if tile:
+                            # Calculo do Thibas
                             calc_x = (math.sqrt(2) * tmxdata.width * x  - math.sqrt(2) * tmxdata.height * y ) / 0.885
                             calc_y =  (math.sqrt(2) * tmxdata.width * x  + math.sqrt(2) * tmxdata.height * y) / 1.77
                             # print(x, y)
                             if layer.name == "background":
                                 screen.blit(tile, (calc_x+610, calc_y+80))
+                                player.Draw(screen)
                             else:
                                 screen.blit(tile, (calc_x+610, calc_y-20)) 
-
+                                melly = Entity(tile, (calc_x+635), (calc_y+70), 0, tile.get_width() - 40, tile.get_height() - 110, 1, "level1")
+                                #melly.DrawHitbox(screen)
+                                if(player.isColliding(melly)):
+                                    player.colisao = True
+                                    player.block()
+                                else:
+                                    player.colisao = False
                 
-
-                #     image = tmxdata.get_tile_image
-                #     screen.blit(image, (0, 0))
-                #     cord_x += 1
-                #     cord_y += 1
-
-                #     pos_map_x += 1
-                #     if(pos_map_x == tmxdata.width - 1):
-                #         pos_map_x = 0
-                
-                # pos_map_y += 1
-                # if(pos_map_y == tmxdata.height - 1):
-                #     pos_map_y = 0
-
             
-
             for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
                     pygame.quit()
@@ -112,11 +108,8 @@ class Game():
                         player.cur_frame = 0
                     if event.key == K_g:
                         pos = player.getPlayerFront(screen)
-                        if deskobj.checkHitBox(pos[0], pos[1]):
+                        if area1.checkHitBox(pos[0], pos[1]) or area2.checkHitBox(pos[0], pos[1]) or area3.checkHitBox(pos[0], pos[1]) or area4.checkHitBox(pos[0], pos[1]) or area5.checkHitBox(pos[0], pos[1]):
                             textbox.defineOption("mesa")
-                            textbox.active = True
-                        if deskobj2.checkHitBox(pos[0], pos[1]):
-                            textbox.defineOption("escada")
                             textbox.active = True
                 elif event.type == KEYDOWN and textbox.active == True:
                     player.left = False
@@ -185,8 +178,8 @@ class Game():
                 gameouver = Gameover()
                 gameouver.run()
 
-            player.Draw(screen)
-            #deskobj.Draw(screen)
+            
+       
             #deskobj2.Draw(screen)
             if(textbox.active == True):
                 textbox.draw()

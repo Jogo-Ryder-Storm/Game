@@ -68,7 +68,8 @@ class Player(Entity):
             if self.cur_frame == len(self.anim[self.state]):
                 self.cur_frame = 0
         screen.blit(self.anim[self.state][self.cur_frame], (self.x, self.y))
-    
+        pygame.draw.rect(screen, (255,0,255), (self.x+20, self.y+50, self.width/5, self.height/5), 3)
+
     def block(self):
             if(self.colisao):
                 self.x = self.lastX
@@ -76,16 +77,19 @@ class Player(Entity):
                 self.colisao = False
 
     def getPlayerFront(self, screen):
+        '''
         if self.actualDirection == "left":
-            #pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+60, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+60, 20 , 20) ,4)
             pos = [self.x-40, self.y+60]
         if self.actualDirection == "right":
-            #pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+60, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+60, 20 , 20) ,4)
             pos = [self.x+130, self.y+60]
         if self.actualDirection == "up":
-            #pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y-50, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y-50, 20 , 20) ,4)
             pos = [self.x+45, self.y-50]
         if self.actualDirection == "down":
-            #pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y+150, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y+150, 20 , 20) ,4)
             pos = [self.x+45, self.y+150]
+        '''
+        pos = [self.x, self.y]
         return pos
