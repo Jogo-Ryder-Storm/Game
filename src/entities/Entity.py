@@ -14,13 +14,16 @@ class Entity():
 
     def Draw(self, screen):
         screen.blit(self.sprite,(self.x, self.y))
-        #pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
+        # pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
+
+    def DrawHitbox(self, screen):
+        pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
 
     def isColliding(self, entity2):
         other_rect = pygame.Rect(entity2.x, entity2.y, entity2.width * entity2.scale, entity2.height * entity2.scale)
         x1 = self.x
         y1 = self.y
-        my_rect = pygame.Rect(x1, y1, self.width * self.scale, self.height * self.scale)
+        my_rect = pygame.Rect(self.x+20, self.y+50, self.width/5, self.height/5)
         if(my_rect.colliderect(other_rect)):
             return True
         x1 = self.x - 1

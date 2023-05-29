@@ -68,7 +68,8 @@ class Player(Entity):
             if self.cur_frame == len(self.anim[self.state]):
                 self.cur_frame = 0
         screen.blit(self.anim[self.state][self.cur_frame], (self.x, self.y))
-    
+        pygame.draw.rect(screen, (255,0,255), (self.x+20, self.y+50, self.width/5, self.height/5), 3)
+
     def block(self):
             if(self.colisao):
                 self.x = self.lastX

@@ -40,8 +40,6 @@ class Game():
         self.next_stage = False
 
         tmxdata = load_pygame('map/lvlone/Office2Official.tmx')
-        
-        
        
 
 
@@ -57,31 +55,24 @@ class Game():
                     for x, y, gid, in layer:
                         tile = imagenew(gid)
                         if tile:
+                            # Calculo do Thibas
                             calc_x = (math.sqrt(2) * tmxdata.width * x  - math.sqrt(2) * tmxdata.height * y ) / 0.885
                             calc_y =  (math.sqrt(2) * tmxdata.width * x  + math.sqrt(2) * tmxdata.height * y) / 1.77
                             # print(x, y)
                             if layer.name == "background":
                                 screen.blit(tile, (calc_x+610, calc_y+80))
+                                player.Draw(screen)
                             else:
                                 screen.blit(tile, (calc_x+610, calc_y-20)) 
-
-                
-
-                #     image = tmxdata.get_tile_image
-                #     screen.blit(image, (0, 0))
-                #     cord_x += 1
-                #     cord_y += 1
-
-                #     pos_map_x += 1
-                #     if(pos_map_x == tmxdata.width - 1):
-                #         pos_map_x = 0
-                
-                # pos_map_y += 1
-                # if(pos_map_y == tmxdata.height - 1):
-                #     pos_map_y = 0
-
+                                melly = Entity(tile, (calc_x+635), (calc_y+70), 0, tile.get_width() - 40, tile.get_height() - 110, 1, "level1")
+                                melly.DrawHitbox(screen)
+                                if(player.isColliding(melly)):
+                                    player.colisao = True
+                                    player.block()
+                                else:
+                                    player.colisao = False
             
-
+            
             for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
                     pygame.quit()
@@ -185,7 +176,7 @@ class Game():
                 gameouver = Gameover()
                 gameouver.run()
 
-            player.Draw(screen)
+            
             #deskobj.Draw(screen)
             #deskobj2.Draw(screen)
             if(textbox.active == True):
