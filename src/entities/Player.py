@@ -77,16 +77,19 @@ class Player(Entity):
                 self.colisao = False
 
     def getPlayerFront(self, screen):
+        '''
         if self.actualDirection == "left":
-            #pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+60, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x-40, self.y+60, 20 , 20) ,4)
             pos = [self.x-40, self.y+60]
         if self.actualDirection == "right":
-            #pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+60, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x+130, self.y+60, 20 , 20) ,4)
             pos = [self.x+130, self.y+60]
         if self.actualDirection == "up":
-            #pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y-50, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y-50, 20 , 20) ,4)
             pos = [self.x+45, self.y-50]
         if self.actualDirection == "down":
-            #pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y+150, 20 , 20) ,4)
+            pygame.draw.rect(screen, (255,255,0), (self.x+45, self.y+150, 20 , 20) ,4)
             pos = [self.x+45, self.y+150]
+        '''
+        pos = [self.x, self.y]
         return pos

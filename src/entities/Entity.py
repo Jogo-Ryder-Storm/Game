@@ -14,7 +14,7 @@ class Entity():
 
     def Draw(self, screen):
         screen.blit(self.sprite,(self.x, self.y))
-        # pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
+        #pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
 
     def DrawHitbox(self, screen):
         pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
