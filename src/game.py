@@ -20,8 +20,10 @@ class Game():
     def run(self):
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
+        entitiesList = []
         sprite = SpriteSheet(spriteimg)
         player = Player(sprite, 600, 300, 10, 64, 70, 1)
+        entitiesList.append(player)
         player.life = self.life
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
@@ -34,7 +36,8 @@ class Game():
         spritenpc2 = SpriteSheet(spriteimgnpc2)
         npc = Npc(spritenpc, WIDTH/2, HEIGHT/2, 5, 32, 32, 1.7)
         npc2 = Npc(spritenpc2, WIDTH/2, HEIGHT/2, 5, 32, 32, 1.7)
-
+        entitiesList.append(npc)
+        entitiesList.append(npc2)
         area1 = Entity(desk, 70, 300, 0, 300, 180, 1, "level1")
         area2 = Entity(desk, 500, 450, 0, 200, 150, 1, "level1")
         area3 = Entity(desk, 500, 100, 0, 250, 150, 1, "level1")
@@ -78,11 +81,13 @@ class Game():
                                 screen.blit(tile, (calc_x+610, calc_y-20)) 
                                 melly = Entity(tile, (calc_x+635), (calc_y+70), 0, tile.get_width() - 40, tile.get_height() - 110, 1, "level1")
                                 #melly.DrawHitbox(screen)
-                                if(player.isColliding(melly)):
-                                    player.colisao = True
-                                    player.block()
-                                else:
-                                    player.colisao = False
+                                for i in range(len(entitiesList)):
+                                    e = entitiesList[i]
+                                    if(e.isColliding(melly)):
+                                        e.colisao = True
+                                        e.block()
+                                    else:
+                                        e.colisao = False
                 
             
             for event in pygame.event.get(): # User did something

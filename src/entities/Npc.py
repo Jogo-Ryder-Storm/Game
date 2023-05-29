@@ -9,6 +9,9 @@ class Npc(Entity):
         self.down = False
         self.left = False
         self.right = False
+        self.colisao = False
+        self.lastX = 0
+        self.lastY = 0
         self.interval = 0
         self.target_x = x
         self.target_y = y
@@ -32,7 +35,7 @@ class Npc(Entity):
             self.anim.append(temp_list)
 
     def Move(self):
-        if self.x == self.target_x and self.y == self.target_y:
+        if (self.x == self.target_x and self.y == self.target_y):
             self.target_x = random.randint(0, WIDTH)
             self.target_y = random.randint(0, HEIGHT)
 
@@ -45,9 +48,12 @@ class Npc(Entity):
 
         self.speed = min(self.speed, distance)
 
-        if distance > 0:
-            self.x += direction_x * (self.speed / distance)
-            self.y += direction_y * (self.speed / distance)
+        if(self.colisao == False):
+            self.lastX = self.x
+            self.lastY = self.y
+            if distance > 0:
+                self.x += direction_x * (self.speed / distance)
+                self.y += direction_y * (self.speed / distance)
 
             if(direction_x * (self.speed / distance) > 0):
                 self.right = True
@@ -90,5 +96,13 @@ class Npc(Entity):
             if self.cur_frame == len(self.anim[self.state]):
                 self.cur_frame = 0
         screen.blit(self.anim[self.state][self.cur_frame], (self.x, self.y))
+
+    def block(self):
+        if(self.colisao):
+            self.x = self.lastX
+            self.y = self.lastY
+            self.target_x = random.randint(0, WIDTH)
+            self.target_y = random.randint(0, HEIGHT)
+            self.colisao = False
 
         
