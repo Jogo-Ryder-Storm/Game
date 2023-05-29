@@ -16,7 +16,7 @@ class Game():
     def __init__(self):
         self.active = True
         self.life = 3
-    def run(self, playername):
+    def run(self):
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         sprite = SpriteSheet(spriteimg)
@@ -33,11 +33,12 @@ class Game():
         area4 = Entity(desk, 700, 150, 0, 300, 200, 1, "level1")
         area5 = Entity(desk, 950, 320, 0, 300, 200, 1, "level1")
 
-
+        
 
         textbox = Textbox()
         textFile = TextFile("ranking.txt")
-        self.player_name = playername
+        textFilePlayerName = TextFile("playerName.txt")
+        player_name = textFilePlayerName.readTextFile()
 
         self.fase = 1
         self.resposta = ""
@@ -169,10 +170,13 @@ class Game():
                     
             if (self.time > 9 and self.next_stage == False):
                 self.life -= 1
-                self.run(self.player_name)
+                textbox.defineOption("erro-tempo")
+                self.run()
             else:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
         
+
+
             if self.life <= 0:
                 from src.gameover import Gameover
                 gameouver = Gameover()
@@ -189,7 +193,7 @@ class Game():
 
             if self.ended == True:
                 textFile.copyFileToTemp()
-                textFile.readFile(self.player_name, str(player.time), str(player.life))
+                textFile.readFile(player_name, str(player.time), str(player.life))
                 
                 self.ended = False
 

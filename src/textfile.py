@@ -61,3 +61,11 @@ class TextFile():
             with open("rankingtemp.txt", "w") as f1:
                 for line in f:
                     f1.write(line)
+
+    def readTextFile(self):
+        line = ""
+        with open(self.file) as file:
+            for item in file:
+                line = item
+                print(line)
+        return line

@@ -83,8 +83,8 @@ class Textbox():
         if(text == "fase-1-correto"):
             self.message = "Escolha Correta! No meio de um terremoto o ideal é você se esconder em baixo de uma um lugar com cobertura como uma mesa para te proteger de coisas que podem cair na sua cabeça."
             self.options = ["Continuar", ""]
-        if(text == "fase-1-incorreto"):
-            self.message = "Escolha Errada!"
+        if(text == "erro-tempo"):
+            self.message = "Acabou o tempo! perde uma vida!"
             self.options = ["Continuar", ""]
         else:
             "Escolha um objeto par interagir"
