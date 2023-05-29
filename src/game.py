@@ -7,6 +7,7 @@ from pytmx.util_pygame import load_pygame
 from src.settings import *
 from src.spritesheet import SpriteSheet
 from src.entities.Player import Player
+from src.entities.Npc import Npc
 from src.entities.Entity import Entity
 from src.UI import UI
 from src.textbox import Textbox
@@ -26,15 +27,20 @@ class Game():
         rectdesk = desk.get_rect()
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
         deskobj2 = Entity(desk, 800, 300, 0, rectdesk.width, rectdesk.height, 1, "level2")
+        textbox = Textbox()
+        spriteimgnpc = pygame.image.load(os.path.join('res','npc.png')).convert_alpha()
+        spritenpc = SpriteSheet(spriteimgnpc)
+        spriteimgnpc2 = pygame.image.load(os.path.join('res','npc2.png')).convert_alpha()
+        spritenpc2 = SpriteSheet(spriteimgnpc2)
+        npc = Npc(spritenpc, WIDTH/2, HEIGHT/2, 5, 32, 32, 1.7)
+        npc2 = Npc(spritenpc2, WIDTH/2, HEIGHT/2, 5, 32, 32, 1.7)
 
         area1 = Entity(desk, 70, 300, 0, 300, 180, 1, "level1")
         area2 = Entity(desk, 500, 450, 0, 200, 150, 1, "level1")
         area3 = Entity(desk, 500, 100, 0, 250, 150, 1, "level1")
         area4 = Entity(desk, 700, 150, 0, 300, 200, 1, "level1")
         area5 = Entity(desk, 950, 320, 0, 300, 200, 1, "level1")
-
-        
-
+     
         textbox = Textbox()
         textFile = TextFile("ranking.txt")
         textFilePlayerName = TextFile("playerName.txt")
@@ -176,21 +182,25 @@ class Game():
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
         
 
-
+        
             if self.life <= 0:
                 from src.gameover import Gameover
                 gameouver = Gameover()
                 gameouver.run()
 
-            
+            player.Draw(screen)
+            npc.Draw(screen)
+            npc2.Draw(screen)
+            deskobj.Draw(screen)
+            deskobj2.Draw(screen)           
        
-            #deskobj2.Draw(screen)
             if(textbox.active == True):
                 textbox.draw()
             else:      
                 player.block()
                 player.Move()    
-
+            npc.Move()
+            npc2.Move()
             if self.ended == True:
                 textFile.copyFileToTemp()
                 textFile.readFile(player_name, str(player.time), str(player.life))
