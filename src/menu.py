@@ -77,7 +77,7 @@ class Menu():
     def next_scene(self):
         from src.game import Game
         game = Game()
-        game.run()
+        game.run(self.player_name)
         self.active = False
 
     def quit_game(self):
