@@ -22,7 +22,7 @@ class Npc(Entity):
         self.anim_steps = [3, 3, 3, 3]
         self.anim = []
         self.last_update = pygame.time.get_ticks()
-        self.frame_tick = 180
+        self.frame_tick = 120
         self.cur_frame = 0
         j = 0
         for animation in self.anim_steps:
@@ -104,5 +104,15 @@ class Npc(Entity):
             self.target_x = random.randint(0, WIDTH)
             self.target_y = random.randint(0, HEIGHT)
             self.colisao = False
+    
+    def DrawHitbox(self, screen):
+        pygame.draw.rect(screen, (255,255,0), (self.x+20, self.y+40, self.width-20, self.height/2),4)
+
+    def isColliding(self, entity2):
+        other_rect = pygame.Rect(entity2.x, entity2.y, entity2.width * entity2.scale, entity2.height * entity2.scale)
+        my_rect = pygame.Rect(self.x+20, self.y+40, self.width-20, self.height/2)
+        if(my_rect.colliderect(other_rect)):
+            return True
+        return False
 
         

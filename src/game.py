@@ -76,13 +76,13 @@ class Game():
                             # print(x, y)
                             if layer.name == "background":
                                 screen.blit(tile, (calc_x+610, calc_y+80))
-                                player.Draw(screen)
                             else:
                                 screen.blit(tile, (calc_x+610, calc_y-20)) 
                                 melly = Entity(tile, (calc_x+635), (calc_y+70), 0, tile.get_width() - 40, tile.get_height() - 110, 1, "level1")
                                 #melly.DrawHitbox(screen)
                                 for i in range(len(entitiesList)):
                                     e = entitiesList[i]
+                                    #e.DrawHitbox(screen)
                                     if(e.isColliding(melly)):
                                         e.colisao = True
                                         e.block()
@@ -159,15 +159,6 @@ class Game():
                 player.y = 0
             if(player.y > HEIGHT-140):
                 player.y = HEIGHT-140
-
-            #pygame.draw.rect(screen, RED, (player.x, player.y, player.width * player.scale, player.height * player.scale), 3)   
-            #pygame.draw.rect(screen, (0, 100, 255), (deskobj.x, deskobj.y, deskobj.width, deskobj.height), 3) 
-            '''
-            if(player.isColliding(deskobj) or player.isColliding(deskobj2)):
-                player.colisao = True
-            else:
-                player.colisao = False
-            '''
   
             if textbox.choiceMade == True:
                 if self.fase == 1:
@@ -186,24 +177,21 @@ class Game():
             else:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
         
-
-        
             if self.life <= 0:
                 from src.gameover import Gameover
                 gameouver = Gameover()
                 gameouver.run()
 
-            player.Draw(screen)
             npc.Draw(screen)
-            npc2.Draw(screen)
-            deskobj.Draw(screen)
-            deskobj2.Draw(screen)           
+            npc2.Draw(screen) 
+            player.Draw(screen)        
        
             if(textbox.active == True):
                 textbox.draw()
             else:      
                 player.block()
-                player.Move()    
+                player.Move()   
+
             npc.Move()
             npc2.Move()
             if self.ended == True:
