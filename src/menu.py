@@ -129,7 +129,7 @@ class Menu():
                 titulo = "Comandos:"
                 sobre = "Sobre:"
                 texto = "Para movimentar o jogador precione os direcionais (setas) do teclado."
-                texto2 = "Para interragir com objetos pressione a tecla 'G' proximo a um objeto."
+                texto2 = "Para interragir com objetos pressione a tecla 'Z' proximo a um objeto."
                 desc = "Ryder Storm é um jogo onde o jogador precissa realizar escolhas ao se encontrar em um desastre natural. O jogador ganha pontos baseado em seu tempo e resposta."
                 tx = Text(None, 40, titulo, BLACK, (bx + bwd/2 - 80, by + 15))
                 tx.draw()
