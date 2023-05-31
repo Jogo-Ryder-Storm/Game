@@ -118,7 +118,7 @@ class Game():
                         player.actualDirection = player.directions[1]
                         player.down = True
                         player.cur_frame = 0
-                    if event.key == K_g:
+                    if event.key == K_z:
                         pos = player.getPlayerFront(screen)
                         if area1.checkHitBox(pos[0], pos[1]) or area2.checkHitBox(pos[0], pos[1]) or area3.checkHitBox(pos[0], pos[1]) or area4.checkHitBox(pos[0], pos[1]) or area5.checkHitBox(pos[0], pos[1]):
                             textbox.defineOption("mesa")
@@ -128,7 +128,7 @@ class Game():
                     player.right = False
                     player.up = False
                     player.down = False
-                    if event.key == K_g:
+                    if event.key == K_z:
                        self.resposta = textbox.getChoice()
                     if event.key == K_LEFT:
                         textbox.esc -= 1

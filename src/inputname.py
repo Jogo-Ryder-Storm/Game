@@ -25,18 +25,19 @@ class inputName():
                         if(self.size > 0):
                             self.size -= 1
                     elif event.key == K_RETURN:
-                        #print(self.input_text)
-                        with open ("playerName.txt", "w") as f:
-                            f.write(self.input_text)
-                        from src.menu import Menu
-                        MUSIC.play(-1)
-                        menu = Menu()
-                        menu.run()
-                        self.active = False
+                        if(len(self.input_text) >= 3):
+                            with open ("playerName.txt", "w") as f:
+                                f.write(self.input_text)
+                            from src.menu import Menu
+                            MUSIC.play(-1)
+                            menu = Menu()
+                            menu.run()
+                            self.active = False
                     else:
                         if(self.size <= 15):
-                            self.input_text += event.unicode
-                            self.size += 1
+                            if event.unicode.isalpha() or event.unicode.isdigit():
+                                self.input_text += event.unicode
+                                self.size += 1
 
             self.alpha -= 8
             if self.alpha < 0:
