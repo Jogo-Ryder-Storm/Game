@@ -44,6 +44,7 @@ class Game():
         area4 = Entity(desk, 700, 150, 0, 300, 200, 1, "level1")
         area5 = Entity(desk, 950, 320, 0, 300, 200, 1, "level1")
 
+        self.direcionarMenu = False
         textbox = Textbox()
         textFile = TextFile("ranking.txt")
         textFilePlayerName = TextFile("playerName.txt")
@@ -73,6 +74,12 @@ class Game():
             self.continuar = 5
             textbox.defineOption("fase-1")
             textbox.active = True
+        print(self.fase)
+        if self.fase == 4:
+            self.continuar = 5
+            textbox.defineOption("fim")
+            textbox.active = True
+            self.direcionarMenu = True
 
         seconds = 0
     
@@ -219,6 +226,8 @@ class Game():
                             self.max_time = 20
                             textbox.active = False
                             self.continuar = 0
+                            if self.direcionarMenu == True:
+                                self.continuar = 6
                         elif self.ended == True:
                             self.continuar = 6
                     if event.key == K_LEFT:
@@ -282,9 +291,7 @@ class Game():
                         player.time += int(text_content)
                         self.next_stage = True
                         textbox.choiceMade = False
-                        self.continuar = 6
-                        self.ended = True
-
+                        self.continuar = 1
 
                     
             if self.continuar == 4:
@@ -300,7 +307,11 @@ class Game():
                 self.fase += 1
                 self.run(self.fase, self.life, player.time)
             elif self.continuar == 6:
-                print("zerou")
+                from src.menu import Menu
+                menu = Menu()
+                menu.run()
+                self.active = False
+
             
                 
 
