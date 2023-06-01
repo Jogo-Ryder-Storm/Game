@@ -61,10 +61,13 @@ class Game():
         tmxdata_1 = load_pygame('map/lvlone/Office2Official.tmx')
         tmxdata_2 = load_pygame('map/lvlone/Office2Official.tmx')
 
+
+        self.continuar = 0
+
         while self.active:
             screen.fill(BLACK)
             
-            print(self.fase)
+            print(self.continuar)
 
             if(self.fase == 1):
                     
@@ -159,6 +162,8 @@ class Game():
                     player.down = False
                     if event.key == K_z:
                        self.resposta = textbox.getChoice()
+                       if self.continuar == 1:
+                            self.continuar = 2
                     if event.key == K_LEFT:
                         textbox.esc -= 1
                         textbox.change_esc()
@@ -198,8 +203,7 @@ class Game():
                         self.ended = True
                         self.next_stage = True
                         textbox.choiceMade = False
-                        self.fase = 2
-                        self.run(self.fase, self.life)
+                        self.continuar = 1
                 elif self.fase == 2:
                     if self.resposta == "Sim":
                         textbox.defineOption("fase-1-correto")
@@ -208,16 +212,23 @@ class Game():
                         self.ended = True
                         self.next_stage = True
                         textbox.choiceMade = False
-                        self.fase = 3
-                        self.run(self.fase, self.life)
+                        self.continuar = 1
+                        
+
+                    
                     
             if (self.time > 9 and self.next_stage == False):
                 self.life -= 1
                 textbox.defineOption("erro-tempo")
                 self.run(self.fase, self.life)
-            else:
+            elif self.continuar == 0:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
-        
+            elif self.continuar == 2:
+                self.fase += 1
+                self.continuar = 0
+                self.run(self.fase, self.life)
+                
+
             if self.life <= 0:
                 from src.gameover import Gameover
                 gameouver = Gameover()
