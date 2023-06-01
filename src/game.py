@@ -67,7 +67,6 @@ class Game():
         while self.active:
             screen.fill(BLACK)
             
-            print(self.continuar)
 
             if(self.fase == 1):
                     
@@ -164,6 +163,8 @@ class Game():
                        self.resposta = textbox.getChoice()
                        if self.continuar == 1:
                             self.continuar = 2
+                       elif self.continuar == 3:
+                            self.continuar = 4
                     if event.key == K_LEFT:
                         textbox.esc -= 1
                         textbox.change_esc()
@@ -216,17 +217,19 @@ class Game():
                         
 
                     
-                    
-            if (self.time > 9 and self.next_stage == False):
+            if self.continuar == 4:
                 self.life -= 1
+                self.run(self.fase, self.life)        
+            elif (self.time > 9 and self.next_stage == False):
                 textbox.defineOption("erro-tempo")
-                self.run(self.fase, self.life)
+                textbox.active = True
+                self.continuar = 3
             elif self.continuar == 0:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
             elif self.continuar == 2:
                 self.fase += 1
-                self.continuar = 0
                 self.run(self.fase, self.life)
+            
                 
 
             if self.life <= 0:
