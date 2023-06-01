@@ -61,9 +61,9 @@ class Game():
 
         player.time = total_time
 
-        tmxdata_1 = load_pygame('map/lvlone/lvl2.tmx')
-        tmxdata_2 = load_pygame('map/lvlone/lvl1.tmx')
-        tmxdata_3 = load_pygame('map/lvlone/lvl3.tmx')
+        tmxdata_1 = load_pygame('map/lvlone.tmx')
+        tmxdata_2 = load_pygame('map/lvltwo.tmx')
+        tmxdata_3 = load_pygame('map/lvlthree.tmx')
         '''
         if self.fase == 2:
             area1.changeArea(0,0,area1.width, area1.height)
