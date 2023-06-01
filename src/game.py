@@ -292,6 +292,7 @@ class Game():
                         self.next_stage = True
                         textbox.choiceMade = False
                         self.continuar = 1
+                        self.ended = True
 
                     
             if self.continuar == 4:
