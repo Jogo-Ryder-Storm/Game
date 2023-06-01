@@ -72,7 +72,7 @@ class Textbox():
 
     def defineOption(self, text):
         if(text == "mesa"):
-            self.message = "Voce deseja se esconder nesa mesa?"
+            self.message = "Voce deseja se esconder em baixo de uma mesa dessa sala?"
             self.options = ["Sim", "Não"]
         if(text == "escada"):
             self.message = "Deseja descer as escadas?"
@@ -80,11 +80,23 @@ class Textbox():
         if(text == "elevador"):
             self.message = "Deseja descer o elevador?"
             self.options = ["Sim", "Não"]
+        if(text == "fase-1"):
+            self.message = "Um terremoto acabou de acontecer! Você terá 20 segundos para tomar uma ação!"
+            self.options = ["Continuar", ""]
         if(text == "fase-1-correto"):
             self.message = "Escolha Correta! No meio de um terremoto o ideal é você se esconder em baixo de uma um lugar com cobertura como uma mesa para te proteger de coisas que podem cair na sua cabeça."
             self.options = ["Continuar", ""]
+        if(text == "fase-2-correto"):
+            self.message = "Escolha Correta! Durante um terremoto as janelas podem quebrar e acabar ferindo você"
+            self.options = ["Continuar", ""]
+        if(text == "fase-2-incorreto"):
+            self.message = "Escolha Incorreta! Você precisa avaliar os objetos antes de se esconder. Janelas podem quebrar e te ferir durante um terremoto. Perdeu uma vida."
+            self.options = ["Continuar", ""]
         if(text == "erro-tempo"):
             self.message = "Acabou o tempo! perdeu uma vida!"
+            self.options = ["Continuar", ""]
+        if(text == "fim"):
+            self.message = "Parabéns! você tomou todas as decisões corretas e finalizou o jogo!"
             self.options = ["Continuar", ""]
         else:
             "Escolha um objeto par interagir"
