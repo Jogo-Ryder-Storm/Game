@@ -69,8 +69,9 @@ class Game():
             area1.changeArea(0,0,area1.width, area1.height)
         '''
         self.continuar = 0
-        
+        self.paused = False
         if self.fase == 1:
+            self.paused = True
             self.continuar = 5
             textbox.defineOption("fase-1")
             textbox.active = True
@@ -81,6 +82,7 @@ class Game():
             textbox.active = True
             self.direcionarMenu = True
 
+        
         seconds = 0
     
         while self.active:
@@ -226,6 +228,8 @@ class Game():
                             self.max_time = 20
                             textbox.active = False
                             self.continuar = 0
+                            self.paused = False
+                            start_ticks=pygame.time.get_ticks() 
                             if self.direcionarMenu == True:
                                 self.continuar = 6
                         elif self.ended == True:
@@ -294,15 +298,16 @@ class Game():
                         self.continuar = 1
                         self.ended = True
 
+            print(self.paused)
                     
             if self.continuar == 4:
                 self.life -= 1
                 self.run(self.fase, self.life, player.time)        
-            elif (self.time > 9 and self.next_stage == False):
+            elif (self.time > 20 and self.next_stage == False):
                 textbox.defineOption("erro-tempo")
                 textbox.active = True
                 self.continuar = 3
-            elif self.continuar == 0:
+            elif self.continuar == 0 and self.paused == False:
                 seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
             elif self.continuar == 2:
                 self.fase += 1
