@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="chair" tilewidth="64" tileheight="128" tilecount="8" columns="4">
- <image source="C:/Users/Fernando/OneDrive - Instituto Presbiteriano Mackenzie/FACUL/Jogos_Digitais/Trab/Game/map/lvlone/out_chair/chair.png" width="256" height="256"/>
+ <image source="out_chair/chair.png" width="256" height="256"/>
  <tile id="3">
   <objectgroup draworder="index" id="4">
    <object id="3" x="52.5" y="56">
