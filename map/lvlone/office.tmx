@@ -9,7 +9,7 @@
  <tileset firstgid="41" name="carpet" tilewidth="64" tileheight="32" tilecount="16" columns="4">
   <image source="out_floor/carpet.png" width="256" height="128"/>
  </tileset>
- <tileset firstgid="57" source="Galbraith.tsx"/>
+ <tileset firstgid="57" source="C:/Users/Fernando/OneDrive - Instituto Presbiteriano Mackenzie/FACUL/Jogos_Digitais/Trab/Game/map/lvlone/Galbraith.tsx"/>
  <layer id="1" name="background" width="20" height="20">
   <data encoding="csv">
 41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,
