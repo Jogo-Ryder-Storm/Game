@@ -17,7 +17,7 @@ class Game():
     def __init__(self):
         self.active = True
         self.life = 3
-    def run(self, map = 1, life_map = 3):
+    def run(self, map = 1, life_map = 3, total_time = 0):
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         entitiesList = []
@@ -58,6 +58,8 @@ class Game():
         self.max_time = 10
         self.next_stage = False
 
+        player.time = total_time
+
         tmxdata_1 = load_pygame('map/lvlone/Office2Official.tmx')
         tmxdata_2 = load_pygame('map/lvlone/Office2Official.tmx')
 
@@ -67,6 +69,7 @@ class Game():
         while self.active:
             screen.fill(BLACK)
             
+            print(player.time)
 
             if(self.fase == 1):
                     
@@ -200,8 +203,7 @@ class Game():
                     if self.resposta == "Sim":
                         textbox.defineOption("fase-1-correto")
                         textbox.active = True
-                        player.time = text_content
-                        self.ended = True
+                        player.time += int(text_content)
                         self.next_stage = True
                         textbox.choiceMade = False
                         self.continuar = 1
@@ -209,7 +211,7 @@ class Game():
                     if self.resposta == "Sim":
                         textbox.defineOption("fase-1-correto")
                         textbox.active = True
-                        player.time = text_content
+                        player.time += int(text_content)
                         self.ended = True
                         self.next_stage = True
                         textbox.choiceMade = False
@@ -219,7 +221,7 @@ class Game():
                     
             if self.continuar == 4:
                 self.life -= 1
-                self.run(self.fase, self.life)        
+                self.run(self.fase, self.life, player.time)        
             elif (self.time > 9 and self.next_stage == False):
                 textbox.defineOption("erro-tempo")
                 textbox.active = True
@@ -228,7 +230,7 @@ class Game():
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
             elif self.continuar == 2:
                 self.fase += 1
-                self.run(self.fase, self.life)
+                self.run(self.fase, self.life, player.time)
             
                 
 

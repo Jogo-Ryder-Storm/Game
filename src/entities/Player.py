@@ -2,7 +2,7 @@ import pygame
 from src.entities.Entity import Entity
 
 class Player(Entity):
-    life = 2
+    life = 3
     directions = ["left", "down", "right", "up"]
     actualDirection = directions[0]
     colisao = False
