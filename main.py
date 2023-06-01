@@ -13,6 +13,4 @@ print("System UP!")
 
 if __name__ == "__main__":
     name = inputName()
-    #from src.gameover import Gameover
-    #name = Gameover()
     name.run()
