@@ -79,7 +79,6 @@ class Game():
         while self.active:
             screen.fill(BLACK)
             
-            print(player.time)
 
             if(self.fase == 1):
                     
@@ -283,7 +282,7 @@ class Game():
                         player.time += int(text_content)
                         self.next_stage = True
                         textbox.choiceMade = False
-                        self.continuar = 1
+                        self.continuar = 6
                         self.ended = True
 
 
@@ -301,7 +300,7 @@ class Game():
                 self.fase += 1
                 self.run(self.fase, self.life, player.time)
             elif self.continuar == 6:
-                score
+                print("zerou")
             
                 
 
