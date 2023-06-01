@@ -43,7 +43,7 @@ class Game():
         area3 = Entity(desk, 500, 100, 0, 250, 150, 1, "level1")
         area4 = Entity(desk, 700, 150, 0, 300, 200, 1, "level1")
         area5 = Entity(desk, 950, 320, 0, 300, 200, 1, "level1")
-     
+
         textbox = Textbox()
         textFile = TextFile("ranking.txt")
         textFilePlayerName = TextFile("playerName.txt")
@@ -55,7 +55,7 @@ class Game():
         self.ended = False
         ui = UI()
         self.time = 0
-        self.max_time = 10
+        self.max_time = 20
         self.next_stage = False
 
         player.time = total_time
@@ -63,9 +63,18 @@ class Game():
         tmxdata_1 = load_pygame('map/lvlone/Office2Official.tmx')
         tmxdata_2 = load_pygame('map/lvlone/Office2Official.tmx')
 
+        if self.fase == 2:
+            area1.changeArea(0,0,area1.width, area1.height)
 
         self.continuar = 0
+        
+        if self.fase == 1:
+            self.continuar = 5
+            textbox.defineOption("fase-1")
+            textbox.active = True
 
+        seconds = 0
+    
         while self.active:
             screen.fill(BLACK)
             
@@ -154,20 +163,29 @@ class Game():
                         player.cur_frame = 0
                     if event.key == K_z:
                         pos = player.getPlayerFront(screen)
-                        if area1.checkHitBox(pos[0], pos[1]) or area2.checkHitBox(pos[0], pos[1]) or area3.checkHitBox(pos[0], pos[1]) or area4.checkHitBox(pos[0], pos[1]) or area5.checkHitBox(pos[0], pos[1]):
-                            textbox.defineOption("mesa")
-                            textbox.active = True
+                        if self.fase == 1:
+                            if area1.checkHitBox(pos[0], pos[1]) or area2.checkHitBox(pos[0], pos[1]) or area3.checkHitBox(pos[0], pos[1]) or area4.checkHitBox(pos[0], pos[1]) or area5.checkHitBox(pos[0], pos[1]):
+                                textbox.defineOption("mesa")
+                                textbox.active = True
+                        if self.fase == 2:
+                            if area1.checkHitBox(pos[0], pos[1]):
+                                textbox.defineOption("elevador")
+                                textbox.active = True
                 elif event.type == KEYDOWN and textbox.active == True:
                     player.left = False
                     player.right = False
                     player.up = False
                     player.down = False
                     if event.key == K_z:
-                       self.resposta = textbox.getChoice()
-                       if self.continuar == 1:
+                        self.resposta = textbox.getChoice()
+                        if self.continuar == 1:
                             self.continuar = 2
-                       elif self.continuar == 3:
+                        elif self.continuar == 3:
                             self.continuar = 4
+                        elif self.continuar == 5:
+                            self.max_time = 11
+                            textbox.active = False
+                            self.continuar = 0
                     if event.key == K_LEFT:
                         textbox.esc -= 1
                         textbox.change_esc()
@@ -216,7 +234,6 @@ class Game():
                         self.next_stage = True
                         textbox.choiceMade = False
                         self.continuar = 1
-                        
 
                     
             if self.continuar == 4:
@@ -227,7 +244,7 @@ class Game():
                 textbox.active = True
                 self.continuar = 3
             elif self.continuar == 0:
-                 seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
+                seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
             elif self.continuar == 2:
                 self.fase += 1
                 self.run(self.fase, self.life, player.time)
@@ -242,7 +259,8 @@ class Game():
             npc.Draw(screen)
             npc2.Draw(screen) 
             player.Draw(screen)        
-       
+            area1.Draw(screen)
+
             if(textbox.active == True):
                 textbox.draw()
             else:      

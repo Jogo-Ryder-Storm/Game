@@ -14,7 +14,7 @@ class Entity():
 
     def Draw(self, screen):
         screen.blit(self.sprite,(self.x, self.y))
-        #pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
+        pygame.draw.rect(screen, (255,255,0), (self.hitbox["x"], self.hitbox["y"], self.hitbox["width"], self.hitbox["height"]),4)
 
     def DrawHitbox(self, screen):
         pygame.draw.rect(screen, (255,255,0), (self.x+20, self.y+50, self.width/5, self.height/5),4)
@@ -41,5 +41,11 @@ class Entity():
         return False
     
     def checkHitBox(self, posx, posy):
-        if self.hitbox["x"] <= posx <= self.hitbox["x"] + self.hitbox["width"] and self.hitbox["y"] <= posy <= self.hitbox["y"] + self.hitbox["height"]:
+        if self.x <= posx <= self.x + self.width and self.y <= posy <= self.y + self.height:
             return True
+        
+    def changeArea(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
