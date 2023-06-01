@@ -43,6 +43,8 @@ class Game():
         area3 = Entity(desk, 500, 100, 0, 250, 150, 1, "level1")
         area4 = Entity(desk, 700, 150, 0, 300, 200, 1, "level1")
         area5 = Entity(desk, 950, 320, 0, 300, 200, 1, "level1")
+        areaElevador  = Entity(desk, 300, 120, 0, 150, 150, 1, "level1")
+
 
         self.direcionarMenu = False
         textbox = Textbox()
@@ -88,6 +90,7 @@ class Game():
         while self.active:
             screen.fill(BLACK)
             
+
 
             if(self.fase == 1):
                     
@@ -213,6 +216,9 @@ class Game():
                             if area1.checkHitBox(pos[0], pos[1]) or area2.checkHitBox(pos[0], pos[1]) or area3.checkHitBox(pos[0], pos[1]) or area4.checkHitBox(pos[0], pos[1]) or area5.checkHitBox(pos[0], pos[1]):
                                 textbox.defineOption("mesa")
                                 textbox.active = True
+                            if areaElevador.checkHitBox(pos[0], pos[1]):
+                                textbox.defineOption("elevador")
+                                textbox.active = True
                 elif event.type == KEYDOWN and textbox.active == True:
                     player.left = False
                     player.right = False
@@ -290,15 +296,21 @@ class Game():
                             self.continuar = 3
                 elif self.fase == 3:
                     if self.resposta == "Sim":
-                        textbox.defineOption("fase-1-correto")
-                        textbox.active = True
-                        player.time += int(text_content)
-                        self.next_stage = True
-                        textbox.choiceMade = False
-                        self.continuar = 1
-                        self.ended = True
+                        if areaElevador.checkHitBox(pos[0], pos[1]):
+                            textbox.defineOption("elevador-incorreto")
+                            textbox.active = True
+                            self.next_stage = True
+                            textbox.choiceMade = False
+                            self.continuar = 3
+                        else:
+                            textbox.defineOption("fase-1-correto")
+                            textbox.active = True
+                            player.time += int(text_content)
+                            self.next_stage = True
+                            textbox.choiceMade = False
+                            self.continuar = 1
+                            self.ended = True
 
-            print(self.paused)
                     
             if self.continuar == 4:
                 self.life -= 1
@@ -329,6 +341,7 @@ class Game():
             npc.Draw(screen)
             npc2.Draw(screen) 
             player.Draw(screen)        
+
 
             if(textbox.active == True):
                 textbox.draw()
