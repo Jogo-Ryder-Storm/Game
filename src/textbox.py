@@ -105,7 +105,7 @@ class Textbox():
             self.message = "Errado! Mesmo se o terremoto parou, não é recomendavel pegar o elevador. Perdeu uma vida"
             self.options = ["Continuar", ""]
         if(text == "escada-incorreto"):
-            self.message = "Errado!, durante um derremoto não se deve andar nas escadas, pode ser arriscado. Perdeu uma vida"
+            self.message = "Errado!, durante um terremoto não se deve andar nas escadas, pode ser arriscado. Perdeu uma vida"
             self.options = ["Continuar", ""]
         if(text == "escada-correto"):
             self.message = "Perfeito!, se deve evitar o elevador mesmo após um terremoto."
