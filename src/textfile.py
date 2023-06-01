@@ -67,5 +67,4 @@ class TextFile():
         with open(self.file) as file:
             for item in file:
                 line = item
-                print(line)
         return line
