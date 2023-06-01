@@ -77,7 +77,6 @@ class Game():
             self.continuar = 5
             textbox.defineOption("fase-1")
             textbox.active = True
-        print(self.fase)
         if self.fase == 4:
             self.continuar = 5
             textbox.defineOption("fase-4")
@@ -312,7 +311,6 @@ class Game():
                 elif self.fase == 3:
                     if self.resposta == "Sim":
                         if areaElevador.checkHitBox(pos[0], pos[1]):
-                            print("ENTROU AUQI!")
                             textbox.defineOption("elevador-incorreto")
                             textbox.active = True
                             self.next_stage = True
@@ -331,7 +329,6 @@ class Game():
                             self.next_stage = True
                             textbox.choiceMade = False
                             self.continuar = 1
-                            self.ended = True
                 elif self.fase == 4:
                     if self.resposta == "Sim":
                         if areaElevador.checkHitBox(pos[0], pos[1]):
