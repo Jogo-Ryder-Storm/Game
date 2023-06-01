@@ -4,6 +4,7 @@
  <tileset firstgid="17" source="cubicles.tsx"/>
  <tileset firstgid="49" source="chair.tsx"/>
  <tileset firstgid="57" source="elevador.tsx"/>
+ <tileset firstgid="58" source="Stone C - Stairs 128x128.tsx"/>
  <layer id="1" name="background" width="20" height="20" locked="1">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -30,7 +31,7 @@
  </layer>
  <layer id="2" name="object" width="20" height="20">
   <data encoding="csv">
-35,44,42,44,44,46,37,32,44,44,42,44,44,21,21,37,32,32,46,21,
+35,44,42,44,44,46,37,32,44,44,42,44,44,21,21,37,32,32,64,0,
 43,0,55,0,0,0,41,0,0,0,55,0,0,0,0,33,55,0,0,0,
 41,0,0,0,0,0,43,0,0,0,0,0,0,0,0,47,0,0,0,52,
 43,50,0,0,0,0,43,0,0,0,0,0,0,0,0,47,0,0,0,0,
