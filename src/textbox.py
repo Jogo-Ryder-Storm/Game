@@ -75,13 +75,19 @@ class Textbox():
             self.message = "Voce deseja se esconder em baixo de uma mesa dessa sala?"
             self.options = ["Sim", "Não"]
         if(text == "escada"):
-            self.message = "Deseja descer as escadas?"
+            self.message = "Deseja pegar as escadas?"
             self.options = ["Sim", "Não"]
         if(text == "elevador"):
             self.message = "Deseja pegar o elevador?"
             self.options = ["Sim", "Não"]
         if(text == "fase-1"):
             self.message = "Um terremoto acabou de acontecer! Você terá 20 segundos para tomar uma ação!"
+            self.options = ["Continuar", ""]
+        if(text == "fase-4"):
+            self.message = "O terremeto parou, escolha rápido, deseja deseja pegar o elevador ou a escada"
+            self.options = ["Continuar", ""]
+        if(text == "fase-3-correto"):
+            self.message = "Escolha correta! mesmo com opções para fugir, o idela é esconder de baixo de uma mesa até parar"
             self.options = ["Continuar", ""]
         if(text == "fase-1-correto"):
             self.message = "Escolha Correta! No meio de um terremoto o ideal é você se esconder em baixo de uma um lugar com cobertura como uma mesa para te proteger de coisas que podem cair na sua cabeça."
@@ -93,7 +99,16 @@ class Textbox():
             self.message = "Escolha Incorreta! Você precisa avaliar os objetos antes de se esconder. Janelas podem quebrar e te ferir durante um terremoto. Perdeu uma vida."
             self.options = ["Continuar", ""]
         if(text == "elevador-incorreto"):
-            self.message = "Errado!, durante um derremoto não se deve pegar um elevador, pode ser arriscado. Perde uma vida"
+            self.message = "Errado!, durante um terremoto não se deve pegar um elevador, pode ser arriscado. Perdeu uma vida"
+            self.options = ["Continuar", ""]
+        if(text == "elevador-incorreto-2"):
+            self.message = "Errado! Mesmo se o terremoto parou, não é recomendavel pegar o elevador. Perdeu uma vida"
+            self.options = ["Continuar", ""]
+        if(text == "escada-incorreto"):
+            self.message = "Errado!, durante um derremoto não se deve andar nas escadas, pode ser arriscado. Perdeu uma vida"
+            self.options = ["Continuar", ""]
+        if(text == "escada-correto"):
+            self.message = "Perfeito!, se deve evitar o elevador mesmo após um terremoto."
             self.options = ["Continuar", ""]
         if(text == "erro-tempo"):
             self.message = "Acabou o tempo! perdeu uma vida!"

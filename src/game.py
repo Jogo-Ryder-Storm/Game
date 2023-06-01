@@ -80,9 +80,14 @@ class Game():
         print(self.fase)
         if self.fase == 4:
             self.continuar = 5
+            textbox.defineOption("fase-4")
+            textbox.active = True
+        if self.fase == 5:
+            self.continuar = 5
             textbox.defineOption("fim")
             textbox.active = True
             self.direcionarMenu = True
+        
 
         
         seconds = 0
@@ -144,7 +149,7 @@ class Game():
                                         else:
                                             e.colisao = False
 
-            elif(self.fase == 3):
+            elif self.fase == 3 or self.fase == 4:
                 imagenew = tmxdata_3.get_tile_image_by_gid
                 for layer in tmxdata_3.visible_layers:
                     if isinstance(layer, pytmx.TiledTileLayer):
@@ -213,8 +218,18 @@ class Game():
                                 textbox.defineOption("mesa")
                                 textbox.active = True
                         if self.fase == 3:
-                            if area1.checkHitBox(pos[0], pos[1]) or area2.checkHitBox(pos[0], pos[1]) or area3.checkHitBox(pos[0], pos[1]) or area4.checkHitBox(pos[0], pos[1]) or area5.checkHitBox(pos[0], pos[1]):
+                            if area1.checkHitBox(pos[0], pos[1]) or area2.checkHitBox(pos[0], pos[1]) or area3.checkHitBox(pos[0], pos[1]) or area4.checkHitBox(pos[0], pos[1]):
                                 textbox.defineOption("mesa")
+                                textbox.active = True
+                            if area5.checkHitBox(pos[0], pos[1]):
+                                textbox.defineOption("escada")
+                                textbox.active = True
+                            if areaElevador.checkHitBox(pos[0], pos[1]):
+                                textbox.defineOption("elevador")
+                                textbox.active = True
+                        if self.fase == 4:
+                            if area5.checkHitBox(pos[0], pos[1]):
+                                textbox.defineOption("escada")
                                 textbox.active = True
                             if areaElevador.checkHitBox(pos[0], pos[1]):
                                 textbox.defineOption("elevador")
@@ -269,7 +284,7 @@ class Game():
                 player.y = 0
             if(player.y > HEIGHT-140):
                 player.y = HEIGHT-140
-  
+                
             if textbox.choiceMade == True:
                 if self.fase == 1:
                     if self.resposta == "Sim":
@@ -297,13 +312,36 @@ class Game():
                 elif self.fase == 3:
                     if self.resposta == "Sim":
                         if areaElevador.checkHitBox(pos[0], pos[1]):
+                            print("ENTROU AUQI!")
                             textbox.defineOption("elevador-incorreto")
+                            textbox.active = True
+                            self.next_stage = True
+                            textbox.choiceMade = False
+                            self.continuar = 3
+                        elif area5.checkHitBox(pos[0], pos[1]):
+                            textbox.defineOption("escada-incorreto")
                             textbox.active = True
                             self.next_stage = True
                             textbox.choiceMade = False
                             self.continuar = 3
                         else:
                             textbox.defineOption("fase-1-correto")
+                            textbox.active = True
+                            player.time += int(text_content)
+                            self.next_stage = True
+                            textbox.choiceMade = False
+                            self.continuar = 1
+                            self.ended = True
+                elif self.fase == 4:
+                    if self.resposta == "Sim":
+                        if areaElevador.checkHitBox(pos[0], pos[1]):
+                            textbox.defineOption("elevador-incorreto-2")
+                            textbox.active = True
+                            self.next_stage = True
+                            textbox.choiceMade = False
+                            self.continuar = 3
+                        if area5.checkHitBox(pos[0], pos[1]):
+                            textbox.defineOption("escada-correto")
                             textbox.active = True
                             player.time += int(text_content)
                             self.next_stage = True
