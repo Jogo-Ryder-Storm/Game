@@ -17,14 +17,14 @@ class Game():
     def __init__(self):
         self.active = True
         self.life = 3
-    def run(self):
+    def run(self, map = 1, life_map = 3):
         screen = pygame.display.get_surface()
         spriteimg = pygame.image.load(os.path.join('res','sprite.png')).convert_alpha()
         entitiesList = []
         sprite = SpriteSheet(spriteimg)
         player = Player(sprite, 600, 300, 10, 64, 70, 1)
         entitiesList.append(player)
-        player.life = self.life
+        player.life = life_map
         desk = pygame.image.load(os.path.join('res','desk.png')).convert_alpha()
         rectdesk = desk.get_rect()
         deskobj = Entity(desk, 300, 200, 0, rectdesk.width, rectdesk.height, 1, "level1")
@@ -49,7 +49,7 @@ class Game():
         textFilePlayerName = TextFile("playerName.txt")
         player_name = textFilePlayerName.readTextFile()
 
-        self.fase = 1
+        self.fase = map
         self.resposta = ""
         start_ticks=pygame.time.get_ticks() #starter tick
         self.ended = False
@@ -58,36 +58,65 @@ class Game():
         self.max_time = 10
         self.next_stage = False
 
-        tmxdata = load_pygame('map/lvlone/Office2Official.tmx')
+        tmxdata_1 = load_pygame('map/lvlone/Office2Official.tmx')
+        tmxdata_2 = load_pygame('map/lvlone/Office2Official.tmx')
 
         while self.active:
             screen.fill(BLACK)
+            
+            print(self.fase)
 
-
-            imagenew = tmxdata.get_tile_image_by_gid
-            for layer in tmxdata.visible_layers:
-                if isinstance(layer, pytmx.TiledTileLayer):
-                    for x, y, gid, in layer:
-                        tile = imagenew(gid)
-                        if tile:
-                            # Calculo do Thibas
-                            calc_x = (math.sqrt(2) * tmxdata.width * x  - math.sqrt(2) * tmxdata.height * y ) / 0.885
-                            calc_y =  (math.sqrt(2) * tmxdata.width * x  + math.sqrt(2) * tmxdata.height * y) / 1.77
-                            # print(x, y)
-                            if layer.name == "background":
-                                screen.blit(tile, (calc_x+610, calc_y+80))
-                            else:
-                                screen.blit(tile, (calc_x+610, calc_y-20)) 
-                                melly = Entity(tile, (calc_x+635), (calc_y+70), 0, tile.get_width() - 40, tile.get_height() - 110, 1, "level1")
-                                #melly.DrawHitbox(screen)
-                                for i in range(len(entitiesList)):
-                                    e = entitiesList[i]
-                                    #e.DrawHitbox(screen)
-                                    if(e.isColliding(melly)):
-                                        e.colisao = True
-                                        e.block()
-                                    else:
-                                        e.colisao = False
+            if(self.fase == 1):
+                    
+                imagenew = tmxdata_1.get_tile_image_by_gid
+                for layer in tmxdata_1.visible_layers:
+                    if isinstance(layer, pytmx.TiledTileLayer):
+                        for x, y, gid, in layer:
+                            tile = imagenew(gid)
+                            if tile:
+                                # Calculo do Thibas
+                                calc_x = (math.sqrt(2) * tmxdata_1.width * x  - math.sqrt(2) * tmxdata_1.height * y ) / 0.885
+                                calc_y =  (math.sqrt(2) * tmxdata_1.width * x  + math.sqrt(2) * tmxdata_1.height * y) / 1.77
+                                # print(x, y)
+                                if layer.name == "background":
+                                    screen.blit(tile, (calc_x+610, calc_y+80))
+                                else:
+                                    screen.blit(tile, (calc_x+610, calc_y-20)) 
+                                    melly = Entity(tile, (calc_x+635), (calc_y+70), 0, tile.get_width() - 40, tile.get_height() - 110, 1, "level1")
+                                    #melly.DrawHitbox(screen)
+                                    for i in range(len(entitiesList)):
+                                        e = entitiesList[i]
+                                        #e.DrawHitbox(screen)
+                                        if(e.isColliding(melly)):
+                                            e.colisao = True
+                                            e.block()
+                                        else:
+                                            e.colisao = False
+            elif(self.fase == 2):
+                imagenew = tmxdata_2.get_tile_image_by_gid
+                for layer in tmxdata_2.visible_layers:
+                    if isinstance(layer, pytmx.TiledTileLayer):
+                        for x, y, gid, in layer:
+                            tile = imagenew(gid)
+                            if tile:
+                                # Calculo do Thibas
+                                calc_x = (math.sqrt(2) * tmxdata_2.width * x  - math.sqrt(2) * tmxdata_2.height * y ) / 0.885
+                                calc_y =  (math.sqrt(2) * tmxdata_2.width * x  + math.sqrt(2) * tmxdata_2.height * y) / 1.77
+                                # print(x, y)
+                                if layer.name == "background":
+                                    screen.blit(tile, (calc_x+610, calc_y+80))
+                                else:
+                                    screen.blit(tile, (calc_x+610, calc_y-20)) 
+                                    melly = Entity(tile, (calc_x+635), (calc_y+70), 0, tile.get_width() - 40, tile.get_height() - 110, 1, "level1")
+                                    #melly.DrawHitbox(screen)
+                                    for i in range(len(entitiesList)):
+                                        e = entitiesList[i]
+                                        #e.DrawHitbox(screen)
+                                        if(e.isColliding(melly)):
+                                            e.colisao = True
+                                            e.block()
+                                        else:
+                                            e.colisao = False
                 
             
             for event in pygame.event.get(): # User did something
@@ -169,11 +198,23 @@ class Game():
                         self.ended = True
                         self.next_stage = True
                         textbox.choiceMade = False
+                        self.fase = 2
+                        self.run(self.fase, self.life)
+                elif self.fase == 2:
+                    if self.resposta == "Sim":
+                        textbox.defineOption("fase-1-correto")
+                        textbox.active = True
+                        player.time = text_content
+                        self.ended = True
+                        self.next_stage = True
+                        textbox.choiceMade = False
+                        self.fase = 3
+                        self.run(self.fase, self.life)
                     
             if (self.time > 9 and self.next_stage == False):
                 self.life -= 1
                 textbox.defineOption("erro-tempo")
-                self.run()
+                self.run(self.fase, self.life)
             else:
                  seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
         
